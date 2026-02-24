@@ -1,0 +1,49 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: guide-match-backend
+  
+  # 数据源配置
+  datasource:
+    url: jdbc:sqlserver://localhost:1433;databaseName=GuideMatch;encrypt=false;sendStringParametersAsUnicode=true;characterEncoding=UTF-8
+    username: sa
+    password: wxl123
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  # HTTP 编码配置
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+    
+  # H2 控制台配置
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+        trace: false
+        web-admin-password: password
+
+# MyBatis-Plus 配置
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# JWT 配置
+jwt:
+  secret: GuideMatchSecretKeyForJWTTokenGeneration2024ThisIsAVeryLongSecretKeyThatMustBeAtLeast64CharactersLongForHS512Algorithm
+  expiration: 86400000 # 24小时（毫秒）
+
+# Flyway 配置（暂时禁用，因为 Flyway 8.5.13 不支持 SQL Server 16.0）
+# 如果需要使用 Flyway，请升级到 Flyway 9.x 或手动执行迁移脚本
+flyway:
+  enabled: false
+  locations: classpath:db/migration
+  baseline-on-migrate: true
+  validate-on-migrate: true
