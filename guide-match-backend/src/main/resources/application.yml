@@ -40,9 +40,9 @@ jwt:
   secret: GuideMatchSecretKeyForJWTTokenGeneration2024ThisIsAVeryLongSecretKeyThatMustBeAtLeast64CharactersLongForHS512Algorithm
   expiration: 86400000 # 24小时（毫秒）
 
-# Flyway 配置
+# Flyway 配置（禁用，使用mysql.sql初始化）
 flyway:
-  enabled: true
+  enabled: false
   locations: classpath:db/migration
   baseline-on-migrate: true
   validate-on-migrate: true
