@@ -38,6 +38,14 @@ export default {
     incomeStats: 'Income Statistics',
     adminPanel: 'Admin Panel'
   },
+  home: {
+    title: 'GuideMatch',
+    subtitle: 'Connect guides and explorers with smart platform',
+    accountInfo: 'Account Information',
+    personalProfile: 'Personal Profile',
+    step1Hint: 'Complete account information first. You can add more personal details later in your profile.',
+    step2Hint: 'You can edit this information anytime in your profile.'
+  },
   profile: {
     title: 'Profile',
     basicInfo: 'Basic Information',

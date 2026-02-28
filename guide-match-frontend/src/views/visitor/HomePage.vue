@@ -28,8 +28,8 @@
       <div class="auth-container">
         <!-- 标题 -->
         <div class="auth-header">
-          <h1 class="auth-title">GuideMatch</h1>
-          <p class="auth-subtitle">{{ getSubtitle() }}</p>
+          <h1 class="auth-title">{{ t('home.title') }}</h1>
+          <p class="auth-subtitle">{{ t('home.subtitle') }}</p>
         </div>
 
         <!-- 登录模式 -->
@@ -71,14 +71,14 @@
               :class="{ active: registerStep === 1 }"
             >
               <span class="step-index">1</span>
-              <span class="step-label">账号信息</span>
+              <span class="step-label">{{ t('home.accountInfo') }}</span>
             </div>
             <div
               class="step"
               :class="{ active: registerStep === 2 }"
             >
               <span class="step-index">2</span>
-              <span class="step-label">个人资料</span>
+              <span class="step-label">{{ t('home.personalProfile') }}</span>
             </div>
           </div>
 
@@ -113,7 +113,7 @@
                 required
               />
             </div>
-            <p class="step-hint">{{ t('login.step1Hint') }}</p>
+            <p class="step-hint">{{ t('home.step1Hint') }}</p>
           </template>
 
           <!-- 第二步：个人资料 -->
@@ -143,7 +143,7 @@
                 class="form-input"
               />
             </div>
-            <p class="step-hint">{{ t('login.step2Hint') }}</p>
+            <p class="step-hint">{{ t('home.step2Hint') }}</p>
           </template>
 
           <button class="auth-btn" @click="handleRegister" :disabled="loading">
@@ -282,15 +282,9 @@ const resetForm = ref({
   confirmPassword: ''
 })
 
-const getSubtitle = () => {
-  if (mode.value === 'login') return t('login.title')
-  if (mode.value === 'register') return t('login.registerSubtitle')
-  return t('login.resetPasswordTitle')
-}
-
 const getRegisterButtonText = () => {
   if (registerStep.value === 1) return t('login.continue')
-  return t('login.register')
+  return t('common.register')
 }
 
 const switchToLogin = () => {

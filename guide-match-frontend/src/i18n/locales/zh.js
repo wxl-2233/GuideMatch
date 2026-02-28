@@ -38,6 +38,14 @@ export default {
     incomeStats: '收入统计',
     adminPanel: '管理后台'
   },
+  home: {
+    title: 'GuideMatch',
+    subtitle: '连接向导与探索者的智能平台',
+    accountInfo: '账号信息',
+    personalProfile: '个人资料',
+    step1Hint: '先完成账号信息，后续可以在个人中心补充更多个人资料。',
+    step2Hint: '这些信息可以在个人中心随时编辑。'
+  },
   profile: {
     title: '个人中心',
     basicInfo: '基本信息',

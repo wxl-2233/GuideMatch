@@ -5,12 +5,12 @@ spring:
   application:
     name: guide-match-backend
   
-  # 数据源配置
+  # 数据源配置 - 使用Railway MySQL环境变量
   datasource:
-    url: jdbc:sqlserver://localhost:1433;databaseName=GuideMatch;encrypt=false;sendStringParametersAsUnicode=true;characterEncoding=UTF-8
-    username: sa
-    password: wxl123
-    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:mysql://${MYSQLHOST}:${MYSQLPORT}/${MYSQLDATABASE}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf8
+    username: ${MYSQLUSER}
+    password: ${MYSQLPASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
   # HTTP 编码配置
   http:
     encoding:
@@ -18,10 +18,10 @@ spring:
       enabled: true
       force: true
     
-  # H2 控制台配置
+  # H2 控制台配置（开发环境）
   h2:
     console:
-      enabled: true
+      enabled: false
       path: /h2-console
       settings:
         web-allow-others: true
@@ -40,10 +40,9 @@ jwt:
   secret: GuideMatchSecretKeyForJWTTokenGeneration2024ThisIsAVeryLongSecretKeyThatMustBeAtLeast64CharactersLongForHS512Algorithm
   expiration: 86400000 # 24小时（毫秒）
 
-# Flyway 配置（暂时禁用，因为 Flyway 8.5.13 不支持 SQL Server 16.0）
-# 如果需要使用 Flyway，请升级到 Flyway 9.x 或手动执行迁移脚本
+# Flyway 配置
 flyway:
-  enabled: false
+  enabled: true
   locations: classpath:db/migration
   baseline-on-migrate: true
   validate-on-migrate: true
