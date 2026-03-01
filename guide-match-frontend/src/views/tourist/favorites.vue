@@ -190,14 +190,26 @@ const viewGuide = (guideId) => {
 
 // 取消收藏
 const removeFavorite = async (guideId) => {
-  if (!confirm('确定要取消收藏吗？')) return
+  console.log('尝试取消收藏，guideId:', guideId)
+  
+  if (!confirm('确定要取消收藏吗？')) {
+    console.log('用户取消了操作')
+    return
+  }
 
   try {
-    await request.delete(`/favorites/${guideId}`)
+    console.log('发送取消收藏请求...')
+    const response = await request.delete(`/favorites/${guideId}`)
+    console.log('取消收藏响应:', response)
+    
+    // 立即从列表中移除，无需等待重新加载
+    favoriteGuides.value = favoriteGuides.value.filter(guide => guide.id !== guideId)
+    
     alert('已取消收藏')
-    loadFavorites() // 重新加载列表
   } catch (error) {
-    alert(error.response?.data?.error || '取消收藏失败')
+    console.error('取消收藏失败:', error)
+    console.error('错误详情:', error.response?.data)
+    alert(error.response?.data?.error || error.message || '取消收藏失败')
   }
 }
 

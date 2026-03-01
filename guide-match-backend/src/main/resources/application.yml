@@ -5,12 +5,13 @@ spring:
   application:
     name: guide-match-backend
   
-  # 数据源配置 - 使用Railway MySQL环境变量
+  # 数据源配置 - 简化本地MySQL配置
   datasource:
-    url: jdbc:mysql://${MYSQLHOST}:${MYSQLPORT}/${MYSQLDATABASE}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf8&enabledTLSProtocols=TLSv1.2
-    username: ${MYSQLUSER}
-    password: ${MYSQLPASSWORD}
+    url: jdbc:mysql://localhost:3306/guidematch?useSSL=false&serverTimezone=UTC&characterEncoding=utf8
+    username: root
+    password: wxl123
     driver-class-name: com.mysql.cj.jdbc.Driver
+    
   # HTTP 编码配置
   http:
     encoding:

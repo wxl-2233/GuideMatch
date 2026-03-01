@@ -540,10 +540,13 @@ onBeforeUnmount(() => {
   min-width: 120px;
   padding: 6px;
 
-  background: var(--card-bg);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(147, 51, 234, 0.2);
   border-radius: 12px;
 
-  box-shadow: var(--card-shadow);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .lang-item {
@@ -624,9 +627,12 @@ onBeforeUnmount(() => {
   max-height: 400px;
   overflow-y: auto;
   padding: 8px;
-  background: var(--card-bg);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(147, 51, 234, 0.2);
   border-radius: 12px;
-  box-shadow: var(--card-shadow);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   z-index: 1000;
 }
 
@@ -702,9 +708,12 @@ onBeforeUnmount(() => {
   top: calc(100% + 8px);
   min-width: 200px;
   padding: 8px;
-  background: var(--card-bg);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(147, 51, 234, 0.2);
   border-radius: 12px;
-  box-shadow: var(--card-shadow);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   z-index: 1000;
 }
 

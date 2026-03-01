@@ -267,10 +267,16 @@ const toggleFavorite = async (guideId) => {
     const isFav = favorites.value.includes(guideId)
     if (isFav) {
       await request.delete(`/favorites/${guideId}`)
+      // 立即从收藏列表中移除
+      favorites.value = favorites.value.filter(id => id !== guideId)
     } else {
       await request.post('/favorites', { guideId })
+      // 立即添加到收藏列表
+      favorites.value.push(guideId)
     }
-    window.location.reload()
+    
+    // 重新加载导游列表以更新收藏状态显示
+    loadGuides()
   } catch (error) {
     console.error('操作失败:', error)
   }
