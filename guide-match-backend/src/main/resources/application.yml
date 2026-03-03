@@ -32,8 +32,7 @@ spring:
         trace: false
         web-admin-password: password
 
-# 生产环境配置
-spring:
+  # 生产环境配置
   config:
     activate:
       on-profile: prod
