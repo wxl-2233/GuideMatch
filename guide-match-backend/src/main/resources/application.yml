@@ -34,9 +34,13 @@ spring:
 
 # 生产环境配置
 spring:
-  spring:
+  config:
+    activate:
+      on-profile: prod
   datasource:
-    url: ${DATABASE_URL}?useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://${MYSQLHOST}:${MYSQLPORT}/${MYSQLDATABASE}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf8&enabledTLSProtocols=TLSv1.2
+    username: ${MYSQLUSER}
+    password: ${MYSQLPASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 # MyBatis-Plus 配置
