@@ -5,34 +5,26 @@ spring:
   application:
     name: guide-match-backend
   
-  # 数据源配置 - 支持本地开发和Railway生产环境
   profiles:
     active: ${SPRING_PROFILES_ACTIVE:dev}
   
-  datasource:
-    url: ${DATASOURCE_URL:jdbc:mysql://localhost:3306/guidematch?useSSL=false&serverTimezone=UTC&characterEncoding=utf8}
-    username: ${DATASOURCE_USERNAME:root}
-    password: ${DATASOURCE_PASSWORD:wxl123}
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    
-  # HTTP 编码配置
+  # 通用 HTTP 配置
   http:
     encoding:
       charset: UTF-8
       enabled: true
       force: true
-    
-  # H2 控制台配置（开发环境）
-  h2:
-    console:
-      enabled: false
-      path: /h2-console
-      settings:
-        web-allow-others: true
-        trace: false
-        web-admin-password: password
 
-  # 生产环境配置
+  # 数据源配置：默认使用本地，如果是 prod 环境则会被下面的 profile 覆盖
+  datasource:
+    url: ${DATASOURCE_URL:jdbc:mysql://localhost:3306/guidematch?useSSL=false&serverTimezone=UTC&characterEncoding=utf8}
+    username: ${DATASOURCE_USERNAME:root}
+    password: ${DATASOURCE_PASSWORD:wxl123}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+# --- 生产环境特定配置 ---
+---
+spring:
   config:
     activate:
       on-profile: prod
@@ -40,23 +32,18 @@ spring:
     url: jdbc:mysql://${MYSQLHOST}:${MYSQLPORT}/${MYSQLDATABASE}?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
     username: ${MYSQLUSER}
     password: ${MYSQLPASSWORD}
-    driver-class-name: com.mysql.cj.jdbc.Driver
 
-# MyBatis-Plus 配置
+# --- 其他框架配置 ---
+---
 mybatis-plus:
   mapper-locations: classpath:/mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
-# JWT 配置
 jwt:
   secret: GuideMatchSecretKeyForJWTTokenGeneration2024ThisIsAVeryLongSecretKeyThatMustBeAtLeast64CharactersLongForHS512Algorithm
-  expiration: 86400000 # 24小时（毫秒）
+  expiration: 86400000 
 
-# Flyway 配置（禁用，使用mysql.sql初始化）
 flyway:
   enabled: false
-  locations: classpath:db/migration
-  baseline-on-migrate: true
-  validate-on-migrate: true
