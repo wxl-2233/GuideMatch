@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { useI18n } from '@/composables/useI18n'
 
 const { t } = useI18n()
@@ -76,7 +76,7 @@ onMounted(() => {
   resetInterval()
 })
 
-onBeforeUnmount(() => {
+onUnmounted(() => {
   isMounted = false
   if (intervalId) {
     clearInterval(intervalId)

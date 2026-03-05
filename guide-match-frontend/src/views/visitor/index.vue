@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import ScenicHero from './sections/ScenicHero.vue'
 import Highlights from './sections/Highlights.vue'
 import InlineLogin from '@/components/feature/InlineLogin.vue'
@@ -35,7 +35,7 @@ onMounted(() => {
   window.addEventListener('show-login', handleLoginEvent)
 })
 
-onBeforeUnmount(() => {
+onUnmounted(() => {
   window.removeEventListener('show-login', handleLoginEvent)
 })
 </script>

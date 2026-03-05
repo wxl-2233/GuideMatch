@@ -214,7 +214,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from '@/composables/useI18n'
 import request from '@/api/request'
@@ -439,7 +439,7 @@ onMounted(() => {
   resetInterval()
 })
 
-onBeforeUnmount(() => {
+onUnmounted(() => {
   isMounted = false
   if (intervalId) {
     clearInterval(intervalId)

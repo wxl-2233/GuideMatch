@@ -140,7 +140,7 @@
                 <td>
                   <div class="user-cell">
                     <img
-                      :src="getAvatarFullUrl(user.avatarPath)"
+                      :src="getAvatarUrl(user.avatarPath)"
                       :alt="user.nickname"
                       class="user-avatar-small"
                       @error="handleImageError"
@@ -199,7 +199,7 @@
             >
               <div class="avatar-preview">
                 <img
-                  :src="getAvatarFullUrl(user.avatarPath)"
+                  :src="getAvatarUrl(user.avatarPath)"
                   alt="avatar"
                   class="avatar-image"
                   @error="handleImageError"
@@ -267,7 +267,7 @@
             >
               <div class="guide-avatar-section">
                 <img
-                  :src="getAvatarFullUrl(guide.avatarPath)"
+                  :src="getAvatarUrl(guide.avatarPath)"
                   :alt="guide.nickname || guide.userName"
                   class="guide-avatar-small"
                   @error="handleImageError"
@@ -421,6 +421,7 @@ import { ref, onMounted, watch, nextTick } from 'vue'
 import { useI18n } from '@/composables/useI18n'
 import request from '@/api/request'
 import PageContainer from '@/components/layout/PageContainer.vue'
+import { getAvatarUrl } from '@/utils/avatar'
 
 const { t } = useI18n()
 

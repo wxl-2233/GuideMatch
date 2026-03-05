@@ -402,7 +402,7 @@ onMounted(() => {
   }
 })
 
-onBeforeUnmount(() => {
+onUnmounted(() => {
   document.removeEventListener('click', handleClickOutside)
   window.removeEventListener('userInfoUpdated', handleUserInfoUpdate)
   // 清理定时器
