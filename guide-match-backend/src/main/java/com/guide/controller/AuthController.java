@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.Random;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 public class AuthController {
 
     @Autowired

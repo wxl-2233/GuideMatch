@@ -1,6 +1,10 @@
 import axios from 'axios'
+
+// 设置baseURL，开发环境使用代理，生产环境使用完整URL
+const baseURL = import.meta.env.VITE_API_BASE_URL || '/api'
+
 const request = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
+  baseURL: baseURL,
   timeout: 5000
 })
 // 请求拦截
