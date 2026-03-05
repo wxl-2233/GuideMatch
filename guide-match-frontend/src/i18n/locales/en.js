@@ -36,7 +36,10 @@ export default {
     orderManagement: 'Order Management',
     calendarManagement: 'Calendar Management',
     incomeStats: 'Income Statistics',
-    adminPanel: 'Admin Panel'
+    adminPanel: 'Admin Panel',
+    totalMembers: 'Total Members',
+    vipMembers: 'VIP Members',
+    becomeMember: 'Become Member'
   },
   home: {
     title: 'GuideMatch',
@@ -162,7 +165,15 @@ export default {
     confirmPasswordPlaceholder: 'Enter new password again',
     passwordMismatch: 'Passwords do not match',
     resetSuccess: 'Password reset successful, please login with your new password',
-    backToLogin: 'Back to Login'
+    backToLogin: 'Back to Login',
+    accountInfo: 'Account Information',
+    personalInfo: 'Personal Information',
+    backToPrevious: '← Back to Previous',
+    uploadAvatar: 'Upload Avatar',
+    selectImage: 'Select Image',
+    personalInfoHint: 'Information in "Personal Information" step can be edited later in profile',
+    imageTitle: 'Discover More<br/>with the Right Companion',
+    imageSubtitle: 'Let every exploration meet the right person'
   },
   community: {
     title: 'Travel Community',
@@ -410,5 +421,21 @@ export default {
     orderCompleted: 'Order completed! Both you and the tourist received 30 EXP',
     historyOrders: 'History Orders',
     noHistoryOrders: 'No history orders'
+  },
+  membership: {
+    title: 'Membership Center',
+    subtitle: 'Upgrade to enjoy exclusive benefits',
+    recommended: 'Recommended',
+    select: 'Select',
+    selected: 'Selected',
+    selectPlanFirst: 'Please select a plan first',
+    upgradeNow: 'Upgrade Now',
+    upgradeSuccess: 'Upgrade successful!',
+    upgradeFailed: 'Upgrade failed, please try again',
+    processing: 'Processing...',
+    benefits: 'Member Benefits',
+    basic: 'Basic Member',
+    premium: 'Premium Member',
+    vip: 'VIP Member'
   }
 }

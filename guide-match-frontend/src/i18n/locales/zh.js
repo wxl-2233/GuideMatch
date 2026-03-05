@@ -36,7 +36,10 @@ export default {
     orderManagement: '订单管理',
     calendarManagement: '日历管理',
     incomeStats: '收入统计',
-    adminPanel: '管理后台'
+    adminPanel: '管理后台',
+    totalMembers: '会员总数',
+    vipMembers: 'VIP会员数',
+    becomeMember: '成为会员'
   },
   home: {
     title: 'GuideMatch',
@@ -165,7 +168,15 @@ export default {
     confirmPasswordPlaceholder: '请再次输入新密码',
     passwordMismatch: '两次输入的密码不一致',
     resetSuccess: '密码重置成功，请使用新密码登录',
-    backToLogin: '返回登录'
+    backToLogin: '返回登录',
+    accountInfo: '账号信息',
+    personalInfo: '个人资料',
+    backToPrevious: '← 返回上一步',
+    uploadAvatar: '上传头像',
+    selectImage: '选择图片',
+    personalInfoHint: '"个人资料"步骤里的信息后续可在个人中心修改',
+    imageTitle: '发现更多<br/>与合适的伙伴同行',
+    imageSubtitle: '让每一次探索，都遇见对的人'
   },
   community: {
     title: '旅游社区',
@@ -420,5 +431,21 @@ export default {
     orderCompleted: '订单已完成！您和游客各获得30经验值',
     historyOrders: '历史订单',
     noHistoryOrders: '暂无历史订单'
+  },
+  membership: {
+    title: '会员中心',
+    subtitle: '升级会员，享受更多专属权益',
+    recommended: '推荐',
+    select: '选择',
+    selected: '已选择',
+    selectPlanFirst: '请先选择一个套餐',
+    upgradeNow: '立即升级',
+    upgradeSuccess: '升级成功！',
+    upgradeFailed: '升级失败，请重试',
+    processing: '处理中...',
+    benefits: '会员权益',
+    basic: '基础会员',
+    premium: '高级会员',
+    vip: 'VIP会员'
   }
 }

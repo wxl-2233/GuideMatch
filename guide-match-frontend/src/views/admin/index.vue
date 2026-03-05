@@ -49,6 +49,20 @@
               <div class="stat-value">{{ stats.pendingPosts }}</div>
             </div>
           </div>
+          <div class="stat-card">
+            <div class="stat-icon">👑</div>
+            <div class="stat-info">
+              <div class="stat-label">{{ t('admin.totalMembers') }}</div>
+              <div class="stat-value">{{ stats.totalMembers }}</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">💎</div>
+            <div class="stat-info">
+              <div class="stat-label">{{ t('admin.vipMembers') }}</div>
+              <div class="stat-value">{{ stats.vipMembers }}</div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -431,7 +445,9 @@ const stats = ref({
   totalOrders: 0,
   completedOrders: 0,
   totalCommission: 0,
-  pendingPosts: 0
+  pendingPosts: 0,
+  totalMembers: 0,
+  vipMembers: 0
 })
 
 const chartData = ref({

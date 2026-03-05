@@ -79,40 +79,9 @@
               {{ t('header.profile') }}
             </button>
             <!-- 根据角色显示不同的快速入口 -->
-            <template v-if="userInfo?.role === 'tourist'">
-              <button class="user-menu-item" @click="goToGuides">
-                {{ t('header.browseGuides') }}
-              </button>
-              <button class="user-menu-item" @click="goToFavorites">
-                {{ t('header.myFavorites') }}
-              </button>
-              <button class="user-menu-item" @click="goToOrders">
-                {{ t('header.myOrders') }}
-              </button>
-              <button class="user-menu-item" @click="goToCommunity">
-                {{ t('header.publishPost') }}
-              </button>
-            </template>
-            <template v-else-if="userInfo?.role === 'guide'">
-              <button class="user-menu-item" @click="goToGuideDashboard">
-                {{ t('header.guideDashboard') }}
-              </button>
-              <button class="user-menu-item" @click="goToGuideOrders">
-                {{ t('header.orderManagement') }}
-              </button>
-              <button class="user-menu-item" @click="goToGuideCalendar">
-                {{ t('header.calendarManagement') }}
-              </button>
-              <button class="user-menu-item" @click="goToGuideIncome">
-                {{ t('header.incomeStats') }}
-              </button>
-              <button class="user-menu-item" @click="goToCommunity">
-                {{ t('header.publishPost') }}
-              </button>
-            </template>
-            <template v-else-if="userInfo?.role === 'admin'">
-              <button class="user-menu-item" @click="goToAdmin">
-                {{ t('header.adminPanel') }}
+            <template v-if="userInfo?.role === 'tourist' || userInfo?.role === 'guide'">
+              <button class="user-menu-item" @click="goToMembership">
+                {{ t('header.becomeMember') }}
               </button>
             </template>
             <button class="user-menu-item" @click="logout">
@@ -326,49 +295,9 @@ const goToProfile = () => {
   router.push('/profile')
 }
 
-const goToGuides = () => {
-  router.push('/tourist')
+const goToMembership = () => {
   userMenuOpen.value = false
-}
-
-const goToOrders = () => {
-  router.push('/tourist/orders')
-  userMenuOpen.value = false
-}
-
-const goToFavorites = () => {
-  router.push('/tourist/favorites')
-  userMenuOpen.value = false
-}
-
-const goToCommunity = () => {
-  router.push('/community')
-  userMenuOpen.value = false
-}
-
-const goToGuideDashboard = () => {
-  router.push('/guide/dashboard')
-  userMenuOpen.value = false
-}
-
-const goToGuideOrders = () => {
-  router.push('/guide/orders')
-  userMenuOpen.value = false
-}
-
-const goToGuideCalendar = () => {
-  router.push('/guide/calendar')
-  userMenuOpen.value = false
-}
-
-const goToGuideIncome = () => {
-  router.push('/guide/income')
-  userMenuOpen.value = false
-}
-
-const goToAdmin = () => {
-  router.push('/admin')
-  userMenuOpen.value = false
+  router.push('/membership')
 }
 
 const logout = () => {
@@ -524,7 +453,7 @@ onUnmounted(() => {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(147, 51, 234, 0.2);
+  border: 1px solid var(--header-border);
   border-radius: 12px;
 
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
@@ -549,8 +478,8 @@ onUnmounted(() => {
 }
 
 .lang-item.active {
-  background: rgba(37, 99, 235, 0.1);
-  color: #2563eb;
+  background: rgba(139, 92, 246, 0.1);
+  color: var(--primary);
 }
 
 /* ===== 登录按钮 ===== */
@@ -591,7 +520,7 @@ onUnmounted(() => {
   position: absolute;
   top: -2px;
   right: -2px;
-  background: #ef4444;
+  background: var(--primary);
   color: #fff;
   font-size: 10px;
   padding: 2px 6px;
@@ -611,7 +540,7 @@ onUnmounted(() => {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(147, 51, 234, 0.2);
+  border: 1px solid var(--header-border);
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   z-index: 1000;
@@ -637,7 +566,7 @@ onUnmounted(() => {
 }
 
 .notification-item.unread {
-  background: rgba(37, 99, 235, 0.1);
+  background: rgba(139, 92, 246, 0.1);
 }
 
 .notification-content {
@@ -692,7 +621,7 @@ onUnmounted(() => {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(147, 51, 234, 0.2);
+  border: 1px solid var(--header-border);
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   z-index: 1000;

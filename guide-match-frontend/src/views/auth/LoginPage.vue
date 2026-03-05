@@ -5,8 +5,6 @@
       <select v-model="currentLanguage" @change="changeLanguage" class="lang-select">
         <option value="zh">中文</option>
         <option value="en">English</option>
-        <option value="ja">日本語</option>
-        <option value="ko">한국어</option>
       </select>
     </div>
 
@@ -60,14 +58,14 @@
                 :class="{ active: registerStep === 1 }"
               >
                 <span class="step-index">1</span>
-                <span class="step-label">账号信息</span>
+                <span class="step-label">{{ t('login.accountInfo') }}</span>
               </div>
               <div
                 class="step"
                 :class="{ active: registerStep === 2 }"
               >
                 <span class="step-index">2</span>
-                <span class="step-label">个人资料</span>
+                <span class="step-label">{{ t('login.personalInfo') }}</span>
               </div>
             </div>
 
@@ -116,11 +114,11 @@
             <template v-else>
               <!-- 返回按钮 -->
               <button class="back-btn" @click="goToPreviousStep" type="button">
-                ← 返回上一步
+                {{ t('login.backToPrevious') }}
               </button>
               
               <div class="form-group">
-                <label>上传头像</label>
+                <label>{{ t('login.uploadAvatar') }}</label>
                 <div class="avatar-upload">
                   <div class="avatar-preview" :style="{ backgroundImage: avatarPreview ? `url(${avatarPreview})` : 'none' }">
                     <span v-if="!avatarPreview" class="avatar-placeholder">📷</span>
@@ -133,7 +131,7 @@
                     class="avatar-input"
                   />
                   <button type="button" class="avatar-btn" @click="$refs.avatarInput.click()">
-                    选择图片
+                    {{ t('login.selectImage') }}
                   </button>
                 </div>
               </div>
@@ -146,7 +144,7 @@
                   class="form-input"
                 />
               </div>
-              <p class="step-hint">"个人资料"步骤里的信息后续可在个人中心修改</p>
+              <p class="step-hint">{{ t('login.personalInfoHint') }}</p>
             </template>
 
             <button class="auth-btn" @click="handleRegister" :disabled="loading">
@@ -223,8 +221,8 @@
             class="auth-image"
           />
           <div class="image-overlay">
-            <h2 class="image-title">Discover More<br/>with the Right Companion</h2>
-            <p class="image-subtitle">让每一次探索，都遇见对的人</p>
+            <h2 class="image-title">{{ t('login.imageTitle') }}</h2>
+            <p class="image-subtitle">{{ t('login.imageSubtitle') }}</p>
           </div>
         </div>
       </div>
@@ -238,20 +236,19 @@ import { useRouter } from 'vue-router'
 import { useI18n } from '@/composables/useI18n'
 import request from '@/api/request'
 
-const { t } = useI18n()
+const { t, setLocale, locale } = useI18n()
 const router = useRouter()
 
 // 使用单张登录背景图片
 const loginImage = new URL('@/assets/scenic/5.jpg', import.meta.url).href
 
 // 语言切换
-const currentLanguage = ref('zh')
+const currentLanguage = ref(locale.value)
 
 const changeLanguage = (event) => {
   const lang = event.target.value
-  // 这里可以集成实际的语言切换逻辑
-  console.log('切换语言到:', lang)
-  // 可以调用 i18n 或其他国际化方案
+  setLocale(lang)
+  currentLanguage.value = lang
 }
 
 // 认证相关

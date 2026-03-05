@@ -80,6 +80,11 @@ const routes = [
     name: 'Profile',
     component: () => import('@/views/profile/index.vue'),
   },
+  {
+    path: '/membership',
+    name: 'Membership',
+    component: () => import('@/views/membership/index.vue'),
+  },
 ]
 
 const router = createRouter({
