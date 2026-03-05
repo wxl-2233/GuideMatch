@@ -160,7 +160,8 @@ const triggerLogin = () => {
 
 const langs = [
   { code: 'zh', label: '中文' },
-  { code: 'en', label: 'English' }
+  { code: 'en', label: 'English' },
+  { code: 'ja', label: '日本語' }
 ]
 const currentLang = computed(() => {
   const lang = langs.find(l => l.code === locale.value)
@@ -474,7 +475,7 @@ onUnmounted(() => {
 }
 
 .lang-item:hover {
-  background: rgba(0, 0, 0, 0.06);
+  background: rgba(139, 92, 246, 0.1);
 }
 
 .lang-item.active {

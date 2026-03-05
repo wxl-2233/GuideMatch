@@ -1,10 +1,12 @@
 import { ref, computed } from 'vue'
 import zh from '../i18n/locales/zh.js'
 import en from '../i18n/locales/en.js'
+import ja from '../i18n/locales/ja.js'
 
 const locales = {
   zh: zh.default || zh,
-  en: en.default || en
+  en: en.default || en,
+  ja: ja.default || ja
 }
 
 // 当前语言

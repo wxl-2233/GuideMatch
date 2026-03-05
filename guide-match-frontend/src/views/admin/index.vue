@@ -197,14 +197,14 @@
             <h3>{{ t('admin.avatarReview') }}</h3>
             <div class="filter-controls">
               <select v-model="avatarFilter.status" class="filter-select" @change="loadAvatarUsers">
-                <option value="">全部状态</option>
-                <option value="pending">待审核</option>
-                <option value="approved">已通过</option>
-                <option value="rejected">已拒绝</option>
+                <option value="">{{ t('admin.allStatus') }}</option>
+                <option value="pending">{{ t('admin.pending') }}</option>
+                <option value="approved">{{ t('admin.approved') }}</option>
+                <option value="rejected">{{ t('admin.rejected') }}</option>
               </select>
             </div>
           </div>
-          <div v-if="avatarUsers.length === 0" class="empty">暂无需要处理的头像</div>
+          <div v-if="avatarUsers.length === 0" class="empty">{{ t('admin.noData') }}</div>
           <div v-else class="avatar-list">
             <div
               v-for="user in avatarUsers"
@@ -344,27 +344,27 @@
           <div class="panel-header">
             <h3>{{ t('admin.orderManagementTitle') }}</h3>
             <button class="btn btn-primary" @click="exportOrders">
-              📥 导出订单数据
+              📥 {{ t('admin.export') }}
             </button>
           </div>
-          <div v-if="allOrders.length === 0" class="empty">暂无订单数据</div>
+          <div v-if="allOrders.length === 0" class="empty">{{ t('admin.noData') }}</div>
           <table v-else class="data-table">
             <thead>
               <tr>
-                <th>订单号</th>
+                <th>{{ t('order.orderId') }}</th>
                 <th>{{ t('role.tourist') }}</th>
                 <th>{{ t('role.guide') }}</th>
-                <th>日期</th>
-                <th>金额</th>
-                <th>状态</th>
-                <th>创建时间</th>
+                <th>{{ t('order.date') }}</th>
+                <th>{{ t('order.totalPrice') }}</th>
+                <th>{{ t('order.status') }}</th>
+                <th>{{ t('admin.registerTime') }}</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="order in allOrders" :key="order.id">
                 <td>{{ order.id || '-' }}</td>
-                <td>{{ order.touristName || '未知用户' }}</td>
-                <td>{{ order.guideName || '未知向导' }}</td>
+                <td>{{ order.touristName || t('common.unknown') }}</td>
+                <td>{{ order.guideName || t('common.unknown') }}</td>
                 <td>{{ order.startDate ? `${order.startDate} 至 ${order.endDate || order.startDate}` : '-' }}</td>
                 <td>¥{{ order.totalPrice || 0 }}</td>
                 <td>

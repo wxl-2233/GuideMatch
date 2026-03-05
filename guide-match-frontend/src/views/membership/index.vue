@@ -28,11 +28,11 @@
             <div class="plan-footer">
               <button 
                 class="btn-select" 
-                :class="{ selected: selectedPlan === plan.id }"
+                :class="{ selected: selectedPlan === plan.id, owned: selectedPlan === plan.id }"
                 @click="selectPlan(plan)"
                 :disabled="selectedPlan === plan.id"
               >
-                {{ selectedPlan === plan.id ? t('membership.selected') : t('membership.select') }}
+                {{ selectedPlan === plan.id ? t('membership.owned') : t('membership.select') }}
               </button>
             </div>
           </div>
@@ -62,6 +62,41 @@
         </div>
       </div>
     </PageContainer>
+    
+    <!-- 支付方式选择弹窗 -->
+    <div v-if="showPaymentModal" class="payment-modal-overlay" @click="showPaymentModal = false">
+      <div class="payment-modal" @click.stop>
+        <div class="payment-header">
+          <h3>{{ t('membership.selectPaymentMethod') }}</h3>
+          <button class="close-btn" @click="showPaymentModal = false">×</button>
+        </div>
+        <div class="payment-content">
+          <div class="payment-methods">
+            <div class="payment-method" @click="confirmPayment">
+              <div class="payment-icon">💳</div>
+              <div class="payment-info">
+                <h4>{{ t('membership.creditCard') }}</h4>
+                <p>{{ t('membership.creditCardDesc') }}</p>
+              </div>
+            </div>
+            <div class="payment-method" @click="confirmPayment">
+              <div class="payment-icon">📱</div>
+              <div class="payment-info">
+                <h4>{{ t('membership.alipay') }}</h4>
+                <p>{{ t('membership.alipayDesc') }}</p>
+              </div>
+            </div>
+            <div class="payment-method" @click="confirmPayment">
+              <div class="payment-icon">💰</div>
+              <div class="payment-info">
+                <h4>{{ t('membership.wechatPay') }}</h4>
+                <p>{{ t('membership.wechatPayDesc') }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -77,6 +112,8 @@ const router = useRouter()
 
 const selectedPlan = ref(null)
 const processing = ref(false)
+const showPaymentModal = ref(false)
+const currentPlan = ref(null)
 
 const plans = ref([
   {
@@ -159,7 +196,30 @@ const benefits = ref([
 ])
 
 const selectPlan = (plan) => {
-  selectedPlan.value = plan.id
+  if (selectedPlan.value === plan.id) {
+    // 如果已经是当前计划，不进行任何操作
+    return
+  }
+  
+  // 显示支付方式选择弹窗
+  showPaymentModal.value = true
+  currentPlan.value = plan
+}
+
+const confirmPayment = () => {
+  selectedPlan.value = currentPlan.value.id
+  showPaymentModal.value = false
+  
+  // 这里可以集成实际的支付逻辑
+  alert(`${t('membership.paymentSuccess')} - ${currentPlan.value.name}`)
+  
+  // 更新用户信息
+  const userStr = localStorage.getItem('user')
+  if (userStr) {
+    const user = JSON.parse(userStr)
+    user.membershipPlan = currentPlan.value.id
+    localStorage.setItem('user', JSON.stringify(user))
+  }
 }
 
 const handleUpgrade = async () => {
@@ -257,6 +317,7 @@ onMounted(() => {
 }
 
 .plan-card:hover {
+  border-color: var(--primary);
   transform: translateY(-4px);
   box-shadow: 0 12px 32px rgba(139, 92, 246, 0.15);
 }
@@ -361,6 +422,117 @@ onMounted(() => {
 .btn-select:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+.btn-select.owned {
+  background: var(--primary);
+  color: white;
+  cursor: default;
+}
+
+/* 支付弹窗样式 */
+.payment-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.payment-modal {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.payment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.payment-header h3 {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.close-btn:hover {
+  background: var(--header-pill-bg);
+  color: var(--text-main);
+}
+
+.payment-content {
+  margin-bottom: 24px;
+}
+
+.payment-methods {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.payment-method {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.payment-method:hover {
+  border-color: var(--primary);
+  background: var(--header-pill-bg);
+}
+
+.payment-icon {
+  font-size: 32px;
+  line-height: 1;
+}
+
+.payment-info h4 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin: 0 0 8px 0;
+}
+
+.payment-info p {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.4;
 }
 
 .membership-benefits {
