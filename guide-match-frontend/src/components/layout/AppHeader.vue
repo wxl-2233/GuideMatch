@@ -131,9 +131,10 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { computed, ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from '@/composables/useI18n'
+import { getAvatarUrl } from '@/utils/avatar'
 import request from '@/api/request'
 
 defineEmits(['login'])
@@ -248,26 +249,6 @@ const handleUserInfoUpdate = (event) => {
   if (event.detail) {
     userInfo.value = event.detail
   }
-}
-
-const getAvatarUrl = (avatarPath, avatarStatus) => {
-  if (!avatarPath || avatarStatus !== 'approved') {
-    return '/default-avatar.png'
-  }
-  if (avatarPath.startsWith('http://') || avatarPath.startsWith('https://')) {
-    return avatarPath
-  }
-  if (avatarPath.startsWith('/img/avatar/')) {
-    return `http://localhost:8080${avatarPath}`
-  }
-  if (avatarPath.startsWith('/img/')) {
-    return `http://localhost:8080${avatarPath}`
-  }
-  if (avatarPath.startsWith('/static/')) {
-    const filename = avatarPath.split('/').pop()
-    return `http://localhost:8080/img/avatar/${filename}`
-  }
-  return `http://localhost:8080/img/avatar/${avatarPath}`
 }
 
 /* ===== 通知功能 ===== */
