@@ -20,7 +20,7 @@ public class CorsFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) res;
 
         String origin = request.getHeader("Origin");
-        if (origin != null && (origin.contains("localhost:5173") || origin.contains("localhost:5174") || origin.contains("localhost:3000"))) {
+        if (origin != null && (origin.contains("localhost:5173") || origin.contains("localhost:5174") || origin.contains("localhost:3000") || origin.equals("https://guidematch.netlify.app"))) {
             response.setHeader("Access-Control-Allow-Origin", origin);
         }
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, PATCH");
