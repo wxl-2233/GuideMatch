@@ -109,7 +109,7 @@ public class GuideController {
             calendarQuery.eq("status", "available");
             calendarQuery.ge("date", LocalDate.now());
             calendarQuery.orderByAsc("date");
-            calendarQuery.last("OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY");
+            calendarQuery.last("LIMIT 1");
             GuideCalendar nextAvailable = guideCalendarMapper.selectOne(calendarQuery);
             LocalDate nextAvailableDate = nextAvailable != null ? nextAvailable.getDate() : null;
             

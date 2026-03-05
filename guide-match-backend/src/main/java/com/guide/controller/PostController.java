@@ -80,7 +80,7 @@ public class PostController {
         QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("status", "approved");
         queryWrapper.orderByDesc("create_time");
-        queryWrapper.last("OFFSET " + (page - 1) * size + " ROWS FETCH NEXT " + size + " ROWS ONLY");
+        queryWrapper.last("LIMIT " + size + " OFFSET " + (page - 1) * size);
 
         List<Post> posts = postMapper.selectList(queryWrapper);
 

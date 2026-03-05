@@ -36,7 +36,7 @@ public class NotificationController {
         QueryWrapper<Notification> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", userId);
         queryWrapper.orderByDesc("create_time");
-        queryWrapper.last("OFFSET 0 ROWS FETCH NEXT 20 ROWS ONLY");
+        queryWrapper.last("LIMIT 20");
 
         List<Notification> notifications = notificationMapper.selectList(queryWrapper);
 
