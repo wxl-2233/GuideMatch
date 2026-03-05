@@ -502,24 +502,6 @@ const loadAvatarUsers = async () => {
   }
 }
 
-const getAvatarFullUrl = (avatarPath) => {
-  if (!avatarPath) return '/default-avatar.png'
-  if (avatarPath.startsWith('http://') || avatarPath.startsWith('https://')) {
-    return avatarPath
-  }
-  if (avatarPath.startsWith('/img/avatar/')) {
-    return `http://localhost:8080${avatarPath}`
-  }
-  if (avatarPath.startsWith('/img/')) {
-    return `http://localhost:8080${avatarPath}`
-  }
-  if (avatarPath.startsWith('/static/')) {
-    const filename = avatarPath.split('/').pop()
-    return `http://localhost:8080/img/avatar/${filename}`
-  }
-  return `http://localhost:8080/img/avatar/${avatarPath}`
-}
-
 const handleImageError = (e) => {
   e.target.src = '/default-avatar.png'
 }

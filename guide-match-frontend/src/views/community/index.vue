@@ -92,6 +92,7 @@ import { ref, onMounted, computed } from 'vue'
 import request from '@/api/request'
 import PageContainer from '@/components/layout/PageContainer.vue'
 import { useI18n } from '@/composables/useI18n'
+import { getAvatarUrl } from '@/utils/avatar'
 
 const { t, locale } = useI18n()
 
@@ -107,27 +108,6 @@ const newPost = ref({
   title: '',
   content: ''
 })
-
-const getAvatarUrl = (avatarPath, avatarStatus) => {
-  // 只有审核通过的头像才显示，否则显示默认头像
-  if (!avatarPath || avatarStatus !== 'approved') {
-    return '/default-avatar.png'
-  }
-  if (avatarPath.startsWith('http://') || avatarPath.startsWith('https://')) {
-    return avatarPath
-  }
-  if (avatarPath.startsWith('/img/avatar/')) {
-    return `http://localhost:8080${avatarPath}`
-  }
-  if (avatarPath.startsWith('/img/')) {
-    return `http://localhost:8080${avatarPath}`
-  }
-  if (avatarPath.startsWith('/static/')) {
-    const filename = avatarPath.split('/').pop()
-    return `http://localhost:8080/img/avatar/${filename}`
-  }
-  return `http://localhost:8080/img/avatar/${avatarPath}`
-}
 
 const loadPosts = async () => {
   loading.value = true

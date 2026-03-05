@@ -161,6 +161,7 @@ import { useRouter } from 'vue-router'
 import request from '@/api/request'
 import PageContainer from '@/components/layout/PageContainer.vue'
 import { useI18n } from '@/composables/useI18n'
+import { getAvatarUrl } from '@/utils/avatar'
 
 const { t } = useI18n()
 
@@ -180,29 +181,6 @@ const filters = ref({
   tag: '',
   sortBy: 'rating'
 })
-
-const getAvatarUrl = (avatarPath, avatarStatus) => {
-  if (!avatarPath) {
-    return '/default-avatar.png'
-  }
-  if (avatarStatus && avatarStatus !== 'approved') {
-    return '/default-avatar.png'
-  }
-  if (avatarPath.startsWith('http://') || avatarPath.startsWith('https://')) {
-    return avatarPath
-  }
-  if (avatarPath.startsWith('/img/avatar/')) {
-    return `http://localhost:8080${avatarPath}`
-  }
-  if (avatarPath.startsWith('/img/')) {
-    return `http://localhost:8080${avatarPath}`
-  }
-  if (avatarPath.startsWith('/static/')) {
-    const filename = avatarPath.split('/').pop()
-    return `http://localhost:8080/img/avatar/${filename}`
-  }
-  return `http://localhost:8080/img/avatar/${avatarPath}`
-}
 
 // 格式化评分
 const formatRating = (rating) => {

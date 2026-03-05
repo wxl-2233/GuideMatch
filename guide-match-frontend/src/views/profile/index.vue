@@ -173,6 +173,7 @@ import { useI18n } from '@/composables/useI18n'
 import request from '@/api/request'
 import axios from 'axios'
 import PageContainer from '@/components/layout/PageContainer.vue'
+import { getAvatarUrl } from '@/utils/avatar'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -238,32 +239,6 @@ const triggerAvatarUpload = () => {
   avatarInput.value?.click()
 }
 
-const getAvatarUrl = (avatarPath, avatarStatus) => {
-  // 如果头像路径不存在，显示默认头像
-  if (!avatarPath) {
-    return '/default-avatar.png'
-  }
-  // 如果头像状态存在且不是 'approved'，显示默认头像
-  if (avatarStatus && avatarStatus !== 'approved') {
-    return '/default-avatar.png'
-  }
-  // 如果头像状态是 null 或 'approved'，显示头像
-  if (avatarPath.startsWith('http://') || avatarPath.startsWith('https://')) {
-    return avatarPath
-  }
-  if (avatarPath.startsWith('/img/avatar/')) {
-    return `http://localhost:8080${avatarPath}`
-  }
-  if (avatarPath.startsWith('/img/')) {
-    return `http://localhost:8080${avatarPath}`
-  }
-  if (avatarPath.startsWith('/static/')) {
-    const filename = avatarPath.split('/').pop()
-    return `http://localhost:8080/img/avatar/${filename}`
-  }
-  return `http://localhost:8080/img/avatar/${avatarPath}`
-}
-
 const handleAvatarChange = async (e) => {
   const file = e.target.files[0]
   if (!file) return
@@ -288,12 +263,7 @@ const handleAvatarChange = async (e) => {
     
     const formData = new FormData()
     formData.append('file', file)
-    const uploadResponse = await axios.post('http://localhost:8080/api/upload/avatar', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        'Authorization': token || ''
-      }
-    })
+    const uploadResponse = await request.post('/upload/avatar', formData)
     
     const avatarPath = uploadResponse.data
     console.log('上传成功，头像路径:', avatarPath)

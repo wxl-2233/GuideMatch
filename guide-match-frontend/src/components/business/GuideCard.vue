@@ -34,6 +34,7 @@
 import Button from '@/components/base/Button.vue'
 import StarRate from '@/components/base/StarRate.vue'
 import LevelProgress from '@/components/base/LevelProgress.vue'
+import { getAvatarUrl } from '@/utils/avatar'
 
 defineProps({
   guide: {
@@ -44,29 +45,6 @@ defineProps({
 })
 
 defineEmits(['view'])
-
-const getAvatarUrl = (avatarPath, avatarStatus) => {
-  if (!avatarPath) {
-    return '/default-avatar.png'
-  }
-  if (avatarStatus && avatarStatus !== 'approved') {
-    return '/default-avatar.png'
-  }
-  if (avatarPath.startsWith('http://') || avatarPath.startsWith('https://')) {
-    return avatarPath
-  }
-  if (avatarPath.startsWith('/img/avatar/')) {
-    return `http://localhost:8080${avatarPath}`
-  }
-  if (avatarPath.startsWith('/img/')) {
-    return `http://localhost:8080${avatarPath}`
-  }
-  if (avatarPath.startsWith('/static/')) {
-    const filename = avatarPath.split('/').pop()
-    return `http://localhost:8080/img/avatar/${filename}`
-  }
-  return `http://localhost:8080/img/avatar/${avatarPath}`
-}
 </script>
 
 <style scoped>
