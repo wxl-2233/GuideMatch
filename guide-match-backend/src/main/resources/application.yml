@@ -4,37 +4,22 @@ server:
 spring:
   application:
     name: guide-match-backend
-  
+
   profiles:
     active: ${SPRING_PROFILES_ACTIVE:dev}
-  
-  # 通用 HTTP 配置
+
   http:
     encoding:
       charset: UTF-8
       enabled: true
       force: true
 
-  # 数据源配置：默认使用本地，如果是 prod 环境则会被下面的 profile 覆盖
   datasource:
     url: ${DATASOURCE_URL:jdbc:mysql://localhost:3306/guidematch?useSSL=false&serverTimezone=UTC&characterEncoding=utf8}
     username: ${DATASOURCE_USERNAME:root}
     password: ${DATASOURCE_PASSWORD:wxl123}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-# --- 生产环境特定配置 ---
----
-spring:
-  config:
-    activate:
-      on-profile: prod
-  datasource:
-    url: jdbc:mysql://${MYSQLHOST}:${MYSQLPORT}/${MYSQLDATABASE}?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
-    username: ${MYSQLUSER}
-    password: ${MYSQLPASSWORD}
-
-# --- 其他框架配置 ---
----
 mybatis-plus:
   mapper-locations: classpath:/mapper/*.xml
   configuration:
@@ -43,7 +28,19 @@ mybatis-plus:
 
 jwt:
   secret: GuideMatchSecretKeyForJWTTokenGeneration2024ThisIsAVeryLongSecretKeyThatMustBeAtLeast64CharactersLongForHS512Algorithm
-  expiration: 86400000 
+  expiration: 86400000
 
 flyway:
   enabled: false
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  datasource:
+    url: jdbc:mysql://${MYSQLHOST}:${MYSQLPORT}/${MYSQLDATABASE}?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+    username: ${MYSQLUSER}
+    password: ${MYSQLPASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
