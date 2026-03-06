@@ -151,6 +151,9 @@
           </div>
         </div>
       </div>
+
+      <!-- AI智能向导 -->
+      <AIGuide />
     </PageContainer>
   </div>
 </template>
@@ -160,6 +163,7 @@ import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import request from '@/api/request'
 import PageContainer from '@/components/layout/PageContainer.vue'
+import AIGuide from '@/components/AIGuide.vue'
 import { useI18n } from '@/composables/useI18n'
 import { getAvatarUrl } from '@/utils/avatar'
 

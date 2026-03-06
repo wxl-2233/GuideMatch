@@ -8,7 +8,7 @@
         </div>
 
         <div class="membership-plans">
-          <div class="plan-card" :class="{ featured: plan.featured }" v-for="plan in plans" :key="plan.id">
+          <div class="plan-card" :class="{ featured: plan.featured, selected: selectedPlan === plan.id }" v-for="plan in plans" :key="plan.id">
             <div class="plan-header">
               <h3 class="plan-name">{{ plan.name }}</h3>
               <div class="plan-price">
@@ -144,6 +144,9 @@ const selectPlan = (plan) => {
     return
   }
   
+  // 立即设置选中状态
+  selectedPlan.value = plan.id
+  
   // 显示支付方式选择弹窗
   showPaymentModal.value = true
   currentPlan.value = plan
@@ -229,6 +232,11 @@ onMounted(() => {
   border-color: var(--primary);
   transform: translateY(-4px);
   box-shadow: 0 12px 32px rgba(139, 92, 246, 0.15);
+}
+
+.plan-card.selected {
+  border-color: var(--primary);
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.2);
 }
 
 .plan-card.featured {

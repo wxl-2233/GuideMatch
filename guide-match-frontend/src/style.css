@@ -20,10 +20,10 @@
   /* 导航栏颜色 - 深紫色背景 */
   --header-bg: linear-gradient(135deg, #4c1d95 0%, #6b3aa0 100%);
   --header-border: rgba(139, 92, 246, 0.3);
-  --header-pill-bg: rgba(139, 92, 246, 0.2);
+  --header-pill-bg: rgba(139, 92, 246, 0.6);
   --text-main: #ffffff;
-  --text-muted: #e0e7ff;
-  --border-color: rgba(255, 255, 255, 0.1);
+  --text-muted: #f0f0f0;
+  --border-color: rgba(255, 255, 255, 0.2);
   
   color-scheme: light;
 }

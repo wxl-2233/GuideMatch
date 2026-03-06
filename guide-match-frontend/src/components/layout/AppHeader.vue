@@ -451,6 +451,12 @@ onUnmounted(() => {
   font-weight: 700;
   color: var(--text-main);
   cursor: pointer;
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.8), 
+               0 0 4px rgba(255, 255, 255, 0.6),
+               -1px -1px 0 #000,  
+               1px -1px 0 #000,
+               -1px 1px 0 #000,
+               1px 1px 0 #000;
 }
 
 .nav {
@@ -460,7 +466,7 @@ onUnmounted(() => {
 
 .nav-item {
   font-size: 14px;
-  color: var(--text-muted);
+  color: #000000;
   transition: color 0.2s;
 }
 
@@ -514,13 +520,13 @@ onUnmounted(() => {
   min-width: 120px;
   padding: 6px;
 
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(0, 0, 0, 0.9);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--header-border);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 12px;
 
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
 .lang-item {
@@ -533,7 +539,7 @@ onUnmounted(() => {
   border-radius: 8px;
   cursor: pointer;
 
-  color: var(--text-main);
+  color: #ffffff;
   font-size: 14px;
 }
 
@@ -682,18 +688,18 @@ onUnmounted(() => {
   top: calc(100% + 8px);
   min-width: 200px;
   padding: 8px;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(0, 0, 0, 0.9);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--header-border);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
   z-index: 1000;
 }
 
 .user-info {
   padding: 12px;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   margin-bottom: 4px;
 }
 
@@ -706,7 +712,7 @@ onUnmounted(() => {
 
 .user-exp {
   font-size: 12px;
-  color: var(--text-muted);
+  color: #f0f0f0;
 }
 
 .user-menu-item {
@@ -717,12 +723,12 @@ onUnmounted(() => {
   text-align: left;
   border-radius: 8px;
   cursor: pointer;
-  color: var(--text-main);
+  color: #ffffff;
   font-size: 14px;
   transition: background 0.2s;
 }
 
 .user-menu-item:hover {
-  background: rgba(0, 0, 0, 0.06);
+  background: rgba(139, 92, 246, 0.2);
 }
 </style>
