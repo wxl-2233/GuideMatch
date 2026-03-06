@@ -288,11 +288,6 @@ const handleSearch = () => {
   loadGuides()
 }
 
-// 查看向导详情
-const viewGuide = (guideId) => {
-  router.push(`/guide/${guideId}`)
-}
-
 // 收藏/取消收藏
 const toggleFavorite = async (guideId) => {
   try {
