@@ -284,16 +284,16 @@ onMounted(() => {
 <style scoped>
 .tourist-page {
   min-height: 100vh;
-  background: #f5f5f5;
+  background: var(--bg-main);
   padding: 24px 0;
 }
 
 .filter-section {
-  background: #fff;
+  background: var(--card-bg);
   padding: 24px;
   border-radius: 8px;
   margin-bottom: 24px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.08);
 }
 
 .search-bar {
@@ -353,10 +353,10 @@ onMounted(() => {
 }
 
 .guides-section {
-  background: #fff;
+  background: var(--card-bg);
   padding: 24px;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.08);
 }
 
 .loading,
@@ -373,16 +373,16 @@ onMounted(() => {
 }
 
 .guide-card {
-  border: 1px solid #e5e5e5;
+  border: 1px solid var(--border-color);
   border-radius: 12px;
   padding: 20px;
   cursor: pointer;
   transition: all 0.3s;
-  background: #fff;
+  background: var(--card-bg);
 }
 
 .guide-card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.15);
   transform: translateY(-2px);
 }
 

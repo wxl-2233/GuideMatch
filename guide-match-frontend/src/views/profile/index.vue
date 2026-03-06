@@ -445,10 +445,10 @@ onMounted(() => {
 }
 
 .profile-card {
-  background: #fff;
+  background: var(--card-bg);
   padding: 24px;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.08);
 }
 
 .card-title {
@@ -613,18 +613,18 @@ onMounted(() => {
   align-items: center;
   gap: 8px;
   padding: 20px;
-  border: 2px solid #e5e5e5;
+  border: 2px solid var(--border-color);
   border-radius: 8px;
-  background: #fff;
+  background: var(--card-bg);
   cursor: pointer;
   transition: all 0.3s;
 }
 
 .action-btn:hover {
-  border-color: #2563eb;
-  background: #f0f7ff;
+  border-color: var(--primary);
+  background: var(--header-pill-bg);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.1);
 }
 
 .action-icon {

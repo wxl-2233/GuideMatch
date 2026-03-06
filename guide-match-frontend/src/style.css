@@ -17,13 +17,13 @@
   --card-shadow: 0 8px 24px rgba(139, 92, 246, 0.08);
   --primary: #8b5cf6;
   
-  /* 导航栏颜色 - 淡紫色背景 */
-  --header-bg: linear-gradient(135deg, #f3e8ff 0%, #e8d4ff 100%);
-  --header-border: rgba(139, 92, 246, 0.2);
-  --header-pill-bg: rgba(139, 92, 246, 0.1);
-  --text-main: #2d1b69;
-  --text-muted: #6b5b8a;
-  --border-color: rgba(139, 92, 246, 0.1);
+  /* 导航栏颜色 - 深紫色背景 */
+  --header-bg: linear-gradient(135deg, #4c1d95 0%, #6b3aa0 100%);
+  --header-border: rgba(139, 92, 246, 0.3);
+  --header-pill-bg: rgba(139, 92, 246, 0.2);
+  --text-main: #ffffff;
+  --text-muted: #e0e7ff;
+  --border-color: rgba(255, 255, 255, 0.1);
   
   color-scheme: light;
 }

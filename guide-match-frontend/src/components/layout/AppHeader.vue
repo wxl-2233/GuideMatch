@@ -324,9 +324,44 @@ const goToProfile = () => {
   router.push('/profile')
 }
 
+const goToOrders = () => {
+  userMenuOpen.value = false
+  router.push('/tourist/orders')
+}
+
+const goToFavorites = () => {
+  userMenuOpen.value = false
+  router.push('/tourist/favorites')
+}
+
 const goToMembership = () => {
   userMenuOpen.value = false
   router.push('/membership')
+}
+
+const goToGuideDashboard = () => {
+  userMenuOpen.value = false
+  router.push('/guide')
+}
+
+const goToGuideOrders = () => {
+  userMenuOpen.value = false
+  router.push('/guide/orders')
+}
+
+const goToGuideCalendar = () => {
+  userMenuOpen.value = false
+  router.push('/guide/calendar')
+}
+
+const goToGuideIncome = () => {
+  userMenuOpen.value = false
+  router.push('/guide/income')
+}
+
+const goToAdmin = () => {
+  userMenuOpen.value = false
+  router.push('/admin')
 }
 
 const logout = () => {

@@ -205,7 +205,7 @@ onMounted(() => {
 <style scoped>
 .community-page {
   min-height: 100vh;
-  background: #f5f5f5;
+  background: var(--bg-main);
   padding: 24px 0;
 }
 
@@ -232,10 +232,10 @@ onMounted(() => {
 }
 
 .composer-card {
-  background: #fff;
+  background: var(--card-bg);
   padding: 24px;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.08);
 }
 
 .composer-card h3 {
@@ -282,10 +282,10 @@ onMounted(() => {
 }
 
 .posts-section {
-  background: #fff;
+  background: var(--card-bg);
   padding: 24px;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.08);
 }
 
 .posts-list {
