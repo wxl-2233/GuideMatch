@@ -110,8 +110,8 @@ router.beforeEach((to, from, next) => {
     }
   }
 
-  // 不需要登录的页面
-  const publicPages = ['/login']
+  // 不需要登录的页面（游客可访问）
+  const publicPages = ['/login', '/visitor', '/community', '/ai-guide']
   const isPublicPage = publicPages.includes(to.path)
 
   // 如果未登录且访问的不是公共页面，重定向到登录页
@@ -122,7 +122,7 @@ router.beforeEach((to, from, next) => {
 
   // 如果是管理员，限制访问游客页面
   if (user && user.role === 'admin') {
-    const restrictedPaths = ['/visitor', '/guide', '/community']
+    const restrictedPaths = ['/visitor', '/guide']
     if (restrictedPaths.includes(to.path)) {
       next('/admin')
       return

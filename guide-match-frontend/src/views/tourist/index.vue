@@ -105,13 +105,21 @@
             class="guide-card"
             @click="viewGuide(guide.id)"
           >
-            <img
-              :src="getAvatarUrl(guide.avatarPath, guide.avatarStatus)"
-              :alt="guide.name"
-              class="guide-avatar"
-            />
+            <div class="guide-header">
+              <img
+                :src="getAvatarUrl(guide.avatarPath, guide.avatarStatus)"
+                :alt="guide.name"
+                class="guide-avatar"
+              />
+              <div class="guide-status" :class="{ online: guide.isOnline, offline: !guide.isOnline }">
+                {{ guide.isOnline ? '在线' : '离线' }}
+              </div>
+            </div>
+            
             <div class="guide-info">
               <h3 class="guide-name">{{ guide.name }}</h3>
+              <div class="guide-title">{{ guide.title || '专业向导' }}</div>
+              
               <div class="guide-rating">
                 <div class="stars">
                   <span v-for="i in 5" :key="i" class="star">
@@ -119,13 +127,40 @@
                   </span>
                 </div>
                 <span class="rating-text">{{ formatRating(guide.rating) }}</span>
+                <span class="review-count">({{ guide.reviewCount || 0 }}条评价)</span>
               </div>
+              
+              <div class="guide-location">
+                📍 {{ guide.city || '未知城市' }}
+              </div>
+              
               <div class="guide-tags">
-                <span v-for="tag in guide.tags" :key="tag" class="tag">
+                <span v-for="tag in (guide.tags || [])" :key="tag" class="tag">
                   {{ tag }}
                 </span>
               </div>
-              <div class="guide-price">¥{{ guide.price }}/{{ guide.period }}</div>
+              
+              <div class="guide-description">
+                {{ guide.description || '暂无介绍' }}
+              </div>
+              
+              <div class="guide-stats">
+                <div class="stat-item">
+                  <span class="stat-label">服务次数</span>
+                  <span class="stat-value">{{ guide.serviceCount || 0 }}</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">响应率</span>
+                  <span class="stat-value">{{ guide.responseRate || 100 }}%</span>
+                </div>
+              </div>
+              
+              <div class="guide-price">
+                <span class="price">¥{{ guide.price || 0 }}</span>
+                <span class="period">/{{ guide.period || '天' }}</span>
+                <span class="price-note" v-if="guide.priceNote">{{ guide.priceNote }}</span>
+              </div>
+              
               <div class="guide-actions">
                 <button class="btn-primary" @click.stop="viewGuide(guide.id)">
                   {{ t('guide.viewDetails') }}
@@ -134,8 +169,12 @@
                   class="btn-favorite"
                   :class="{ active: isFavorite(guide.id) }"
                   @click.stop="toggleFavorite(guide.id)"
+                  :disabled="!isLogin"
                 >
                   {{ isFavorite(guide.id) ? '❤️' : '🤍' }}
+                </button>
+                <button class="btn-contact" @click.stop="contactGuide(guide.id)">
+                  💬 联系
                 </button>
               </div>
             </div>
@@ -167,6 +206,11 @@ const loading = ref(false)
 const searchKeyword = ref('')
 const favorites = ref([])
 
+// 检查登录状态
+const isLogin = computed(() => {
+  return !!localStorage.getItem('token')
+})
+
 const filters = ref({
   showFavoritesOnly: false,
   city: '',
@@ -187,6 +231,21 @@ const formatRating = (rating) => {
     return parseFloat(rating).toFixed(1)
   }
   return '0.0'
+}
+
+// 联系向导
+const contactGuide = (guideId) => {
+  if (!isLogin.value) {
+    alert('请先登录后联系向导')
+    return
+  }
+  // 这里可以跳转到聊天页面或者打开联系对话框
+  console.log('联系向导:', guideId)
+}
+
+// 查看向导详情
+const viewGuide = (guideId) => {
+  router.push(`/guide/${guideId}`)
 }
 
 // 加载向导列表
@@ -369,16 +428,23 @@ onMounted(() => {
 
 .guide-card {
   border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 20px;
+  border-radius: 16px;
+  padding: 0;
   cursor: pointer;
   transition: all 0.3s;
   background: var(--card-bg);
+  overflow: hidden;
 }
 
 .guide-card:hover {
-  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.15);
-  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.15);
+  transform: translateY(-4px);
+}
+
+.guide-header {
+  position: relative;
+  padding: 20px 20px 0 20px;
+  text-align: center;
 }
 
 .guide-avatar {
@@ -386,38 +452,277 @@ onMounted(() => {
   height: 80px;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
+}
+
+.guide-status {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.guide-status.online {
+  background: #10b981;
+  color: white;
+}
+
+.guide-status.offline {
+  background: #6b7280;
+  color: white;
 }
 
 .guide-info {
-  margin-bottom: 16px;
+  padding: 0 20px 20px 20px;
 }
 
 .guide-name {
-  font-size: 18px;
-  font-weight: 600;
-  margin: 0 0 8px 0;
-  color: #333;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+  color: var(--text-main);
+  text-align: center;
+}
+
+.guide-title {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+  text-align: center;
 }
 
 .guide-rating {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   margin-bottom: 12px;
 }
 
 .stars {
-  color: #ffc107;
+  display: flex;
+  gap: 2px;
+}
+
+.star {
   font-size: 14px;
 }
 
-.rating-value {
+.rating-text {
+  font-size: 14px;
   font-weight: 600;
-  color: #333;
+  color: var(--text-main);
 }
 
-.reviews {
+.review-count {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.guide-location {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.guide-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+  justify-content: center;
+}
+
+.tag {
+  padding: 4px 8px;
+  background: rgba(139, 92, 246, 0.1);
+  color: var(--primary);
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.guide-description {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-align: center;
+}
+
+.guide-stats {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 16px;
+  padding: 12px 0;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-label {
+  display: block;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.guide-price {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.price {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.period {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.price-note {
+  display: block;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.guide-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-primary {
+  flex: 1;
+  padding: 12px 16px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-primary:hover {
+  background: #7c3aed;
+}
+
+.btn-favorite {
+  padding: 12px 16px;
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-favorite:hover {
+  border-color: var(--primary);
+}
+
+.btn-favorite.active {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: #ef4444;
+}
+
+.btn-favorite:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-contact {
+  padding: 12px 16px;
+  background: #10b981;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-contact:hover {
+  background: #059669;
+}
+
+@media (max-width: 768px) {
+  .tourist-page {
+    padding: 16px 0;
+  }
+  
+  .guides-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .guide-card {
+    border-radius: 12px;
+  }
+  
+  .guide-header {
+    padding: 16px 16px 0 16px;
+  }
+  
+  .guide-avatar {
+    width: 64px;
+    height: 64px;
+  }
+  
+  .guide-info {
+    padding: 0 16px 16px 16px;
+  }
+  
+  .guide-name {
+    font-size: 18px;
+  }
+  
+  .guide-stats {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .stat-item {
+    display: flex;
+    justify-content: space-between;
+    text-align: left;
+  }
+  
+  .guide-actions {
+    flex-direction: column;
+  }
+  
+  .btn-primary,
+  .btn-favorite,
+  .btn-contact {
+    width: 100%;
+  }
+}
   color: #999;
   font-size: 12px;
 }

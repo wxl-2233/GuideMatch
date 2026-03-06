@@ -210,7 +210,7 @@ export default {
   },
   home: {
     recommendedGuides: '向导推荐',
-    viewAll: '查看全部',
+    viewAllGuides: '查看全部向导',
     discussions: '大家在讨论',
     enterCommunity: '进入社区'
   },

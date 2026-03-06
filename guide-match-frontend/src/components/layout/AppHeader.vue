@@ -451,7 +451,7 @@ onUnmounted(() => {
   font-weight: 700;
   color: var(--text-main);
   cursor: pointer;
-  background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7, #dfe6e9);
+  background: linear-gradient(45deg, #90EE90, #98FB98, #00FA9A, #00FF7F, #3CB371, #2E8B57);
   background-size: 300% 300%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

@@ -18,6 +18,7 @@ public class CorsFilter implements Filter {
     // 定义允许的域名列表，方便维护
     private final List<String> allowedOrigins = Arrays.asList(
             "https://guidematch.netlify.app",
+            "https://guidematch.pages.dev",
             "http://localhost:5173",
             "http://localhost:5174",
             "http://localhost:3000"

@@ -207,7 +207,7 @@ export default {
   },
   home: {
     recommendedGuides: 'Recommended Guides',
-    viewAll: 'View All',
+    viewAllGuides: 'View All Guides',
     discussions: 'Discussions',
     enterCommunity: 'Enter Community'
   },
