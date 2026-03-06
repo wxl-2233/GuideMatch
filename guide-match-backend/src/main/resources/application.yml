@@ -35,6 +35,15 @@ jwt:
   secret: GuideMatchSecretKeyForJWTTokenGeneration2024ThisIsAVeryLongSecretKeyThatMustBeAtLeast64CharactersLongForHS512Algorithm
   expiration: 86400000
 
+ai:
+  zhizengzeng:
+    api:
+      key: ${ZHIZENGZENG_API_KEY:your-api-key-here}
+      url: ${ZHIZENGZENG_API_URL:https://api.zhizengzeng.com/v1}
+      model: ${ZHIZENGZENG_MODEL:gpt-3.5-turbo}
+      max-tokens: ${ZHIZENGZENG_MAX_TOKENS:500}
+      temperature: ${ZHIZENGZENG_TEMPERATURE:0.7}
+
 ---
 spring:
   config:

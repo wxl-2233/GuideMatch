@@ -11,56 +11,55 @@
         <!-- AI对话区域 -->
         <div class="ai-chat-section">
           <div class="chat-container">
-            <div class="chat-header">
-              <div class="ai-info">
-                <div class="ai-avatar-large">🤖</div>
-                <div class="ai-details">
-                  <h3>AI智能向导</h3>
-                  <span class="status-indicator">在线</span>
+            <div class="chat-main">
+              <div class="chat-messages" ref="chatMessages">
+                <div 
+                  v-for="(message, index) in messages" 
+                  :key="index"
+                  class="message"
+                  :class="{ 'user-message': message.type === 'user', 'ai-message': message.type === 'ai' }"
+                >
+                  <div class="message-avatar">
+                    {{ message.type === 'user' ? '👤' : '🤖' }}
+                  </div>
+                  <div class="message-content">
+                    <div class="message-text">{{ message.content }}</div>
+                    <div class="message-time">{{ formatTime(message.timestamp) }}</div>
+                  </div>
                 </div>
-              </div>
-              <button class="clear-chat-btn" @click="clearChat">
-                🗑️ 清空对话
-              </button>
-            </div>
-
-            <div class="chat-messages" ref="chatMessages">
-              <div 
-                v-for="(message, index) in messages" 
-                :key="index"
-                class="message"
-                :class="{ 'user-message': message.type === 'user', 'ai-message': message.type === 'ai' }"
-              >
-                <div class="message-avatar">
-                  {{ message.type === 'user' ? '👤' : '🤖' }}
-                </div>
-                <div class="message-content">
-                  <div class="message-text">{{ message.content }}</div>
-                  <div class="message-time">{{ formatTime(message.timestamp) }}</div>
-                </div>
-              </div>
-              
-              <!-- 加载指示器 -->
-              <div v-if="isLoading" class="message ai-message">
-                <div class="message-avatar">🤖</div>
-                <div class="message-content">
-                  <div class="typing-indicator">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                
+                <!-- 加载指示器 -->
+                <div v-if="isLoading" class="message ai-message">
+                  <div class="message-avatar">🤖</div>
+                  <div class="message-content">
+                    <div class="typing-indicator">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
             
-            <div class="chat-input-container">
-              <div class="quick-actions">
-                <div class="quick-actions-title">快速提问：</div>
-                <div class="quick-actions-grid">
+            <div class="chat-sidebar">
+              <div class="ai-info-card">
+                <div class="ai-avatar-large">🤖</div>
+                <h3>AI智能向导</h3>
+                <p>基于智增增技术，为您提供专业的向导推荐和咨询服务</p>
+                <div class="ai-status">
+                  <span class="status-dot"></span>
+                  <span>在线服务中</span>
+                </div>
+              </div>
+              
+              <div class="quick-actions-card">
+                <h4>快速提问</h4>
+                <div class="quick-actions-list">
                   <button 
                     v-for="action in quickActions" 
                     :key="action.text"
-                    class="quick-action-btn"
+                    class="quick-action-item"
                     @click="sendQuickAction(action.text)"
                   >
                     {{ action.text }}
@@ -68,23 +67,37 @@
                 </div>
               </div>
               
-              <div class="chat-input-wrapper">
-                <textarea
-                  v-model="inputMessage"
-                  placeholder="输入您的问题，AI助手将为您提供专业建议..."
-                  class="chat-input"
-                  @keypress.enter.prevent="handleEnter"
-                  rows="3"
-                ></textarea>
-                <button 
-                  class="send-btn"
-                  @click="sendMessage"
-                  :disabled="!inputMessage.trim() || isLoading"
-                >
-                  <span v-if="isLoading">⏳</span>
-                  <span v-else>📤</span>
-                </button>
+              <div class="chat-stats">
+                <h4>对话统计</h4>
+                <div class="stat-item">
+                  <span class="stat-label">消息数量</span>
+                  <span class="stat-value">{{ messages.length }}</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">响应时间</span>
+                  <span class="stat-value">{{ stats.avgResponse }}s</span>
+                </div>
               </div>
+            </div>
+          </div>
+          
+          <div class="chat-input-container">
+            <div class="input-wrapper">
+              <textarea
+                v-model="inputMessage"
+                placeholder="输入您的问题，AI助手将为您提供专业建议..."
+                class="chat-input"
+                @keypress.enter.prevent="handleEnter"
+                rows="2"
+              ></textarea>
+              <button 
+                class="send-btn"
+                @click="sendMessage"
+                :disabled="!inputMessage.trim() || isLoading"
+              >
+                <span v-if="isLoading">⏳</span>
+                <span v-else>发送</span>
+              </button>
             </div>
           </div>
         </div>
@@ -346,52 +359,68 @@ const formatTime = (timestamp) => {
   box-shadow: 0 8px 32px rgba(139, 92, 246, 0.1);
   overflow: hidden;
   border: 1px solid var(--border-color);
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  min-height: 500px;
 }
 
-.chat-header {
-  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-  padding: 20px 24px;
+.chat-main {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
 }
 
-.ai-info {
+.chat-sidebar {
+  background: rgba(139, 92, 246, 0.05);
+  border-left: 1px solid var(--border-color);
+  padding: 24px;
   display: flex;
-  align-items: center;
-  gap: 16px;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.ai-info-card {
+  text-align: center;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
 }
 
 .ai-avatar-large {
-  width: 48px;
-  height: 48px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
+  font-size: 28px;
+  margin: 0 auto 16px;
 }
 
-.ai-details h3 {
-  color: white;
-  margin: 0 0 4px 0;
+.ai-info-card h3 {
+  color: var(--primary);
+  margin: 0 0 8px 0;
   font-size: 18px;
 }
 
-.status-indicator {
-  color: rgba(255, 255, 255, 0.8);
+.ai-info-card p {
+  color: var(--text-muted);
+  margin: 0 0 16px 0;
   font-size: 14px;
-  position: relative;
-  padding-left: 16px;
+  line-height: 1.5;
 }
 
-.status-indicator::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
+.ai-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #10b981;
+}
+
+.status-dot {
   width: 8px;
   height: 8px;
   background: #10b981;
@@ -399,31 +428,63 @@ const formatTime = (timestamp) => {
   animation: pulse-dot 2s infinite;
 }
 
-@keyframes pulse-dot {
-  0% {
-    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-  }
-  70% {
-    box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
-  }
+.quick-actions-card h4 {
+  color: var(--primary);
+  margin: 0 0 12px 0;
+  font-size: 16px;
 }
 
-.clear-chat-btn {
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 8px 16px;
+.quick-actions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.quick-action-item {
+  padding: 12px 16px;
+  border: 1px solid var(--border-color);
+  background: white;
+  color: var(--primary);
   border-radius: 8px;
-  cursor: pointer;
   font-size: 14px;
+  cursor: pointer;
   transition: all 0.2s;
+  text-align: left;
 }
 
-.clear-chat-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
+.quick-action-item:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.chat-stats h4 {
+  color: var(--primary);
+  margin: 0 0 12px 0;
+  font-size: 16px;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.stat-item:last-child {
+  border-bottom: none;
+}
+
+.stat-label {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.stat-value {
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 14px;
 }
 
 .chat-messages {
@@ -544,46 +605,12 @@ const formatTime = (timestamp) => {
 }
 
 .chat-input-container {
-  padding: 24px;
+  padding: 20px 24px;
   background: rgba(255, 255, 255, 0.3);
   border-top: 1px solid var(--border-color);
 }
 
-.quick-actions {
-  margin-bottom: 20px;
-}
-
-.quick-actions-title {
-  font-size: 14px;
-  color: var(--text-muted);
-  margin-bottom: 12px;
-}
-
-.quick-actions-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 12px;
-}
-
-.quick-action-btn {
-  padding: 12px 16px;
-  border: 1px solid var(--primary);
-  background: white;
-  color: var(--primary);
-  border-radius: 12px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: all 0.2s;
-  text-align: left;
-}
-
-.quick-action-btn:hover {
-  background: var(--primary);
-  color: white;
-  transform: translateY(-2px);
-}
-
-.chat-input-wrapper {
+.input-wrapper {
   display: flex;
   gap: 12px;
   align-items: flex-end;
@@ -608,18 +635,19 @@ const formatTime = (timestamp) => {
 }
 
 .send-btn {
-  padding: 16px 20px;
+  padding: 16px 24px;
   background: var(--primary);
   color: white;
   border: none;
   border-radius: 12px;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 16px;
+  font-weight: 600;
   transition: all 0.2s;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 60px;
+  min-width: 80px;
 }
 
 .send-btn:hover:not(:disabled) {
@@ -734,6 +762,15 @@ const formatTime = (timestamp) => {
     font-size: 16px;
   }
   
+  .chat-container {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  
+  .chat-sidebar {
+    display: none;
+  }
+  
   .chat-messages {
     height: 300px;
     padding: 16px;
@@ -743,22 +780,18 @@ const formatTime = (timestamp) => {
     max-width: 90%;
   }
   
-  .quick-actions-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .features-grid,
-  .stats-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .chat-input-wrapper {
+  .input-wrapper {
     flex-direction: column;
     gap: 12px;
   }
   
   .send-btn {
     width: 100%;
+  }
+  
+  .features-grid,
+  .stats-grid {
+    grid-template-columns: 1fr;
   }
 }
 </style>

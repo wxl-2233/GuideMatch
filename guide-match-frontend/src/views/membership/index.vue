@@ -202,13 +202,13 @@ onMounted(() => {
 .title {
   font-size: 36px;
   font-weight: 700;
-  color: var(--text-main);
+  color: #1f2937;
   margin-bottom: 16px;
 }
 
 .subtitle {
   font-size: 18px;
-  color: var(--text-muted);
+  color: #6b7280;
   margin-bottom: 0;
 }
 

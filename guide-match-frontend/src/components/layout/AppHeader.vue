@@ -451,12 +451,30 @@ onUnmounted(() => {
   font-weight: 700;
   color: var(--text-main);
   cursor: pointer;
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7, #dfe6e9);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 3s ease-in-out infinite;
   text-shadow: 0 0 2px rgba(255, 255, 255, 0.8), 
                0 0 4px rgba(255, 255, 255, 0.6),
                -1px -1px 0 #000,  
                1px -1px 0 #000,
                -1px 1px 0 #000,
                1px 1px 0 #000;
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .nav {
@@ -520,13 +538,13 @@ onUnmounted(() => {
   min-width: 120px;
   padding: 6px;
 
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
 
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .lang-item {
@@ -539,7 +557,7 @@ onUnmounted(() => {
   border-radius: 8px;
   cursor: pointer;
 
-  color: #ffffff;
+  color: #1f2937;
   font-size: 14px;
 }
 
@@ -688,18 +706,18 @@ onUnmounted(() => {
   top: calc(100% + 8px);
   min-width: 200px;
   padding: 8px;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   z-index: 1000;
 }
 
 .user-info {
   padding: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid var(--border-color);
   margin-bottom: 4px;
 }
 
@@ -712,7 +730,7 @@ onUnmounted(() => {
 
 .user-exp {
   font-size: 12px;
-  color: #f0f0f0;
+  color: #6b7280;
 }
 
 .user-menu-item {
@@ -723,12 +741,12 @@ onUnmounted(() => {
   text-align: left;
   border-radius: 8px;
   cursor: pointer;
-  color: #ffffff;
+  color: #1f2937;
   font-size: 14px;
   transition: background 0.2s;
 }
 
 .user-menu-item:hover {
-  background: rgba(139, 92, 246, 0.2);
+  background: rgba(139, 92, 246, 0.1);
 }
 </style>
