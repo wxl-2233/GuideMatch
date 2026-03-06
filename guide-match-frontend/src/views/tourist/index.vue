@@ -107,54 +107,45 @@
           >
             <img
               :src="getAvatarUrl(guide.avatarPath, guide.avatarStatus)"
-              :alt="guide.nickname"
+              :alt="guide.name"
               class="guide-avatar"
             />
             <div class="guide-info">
-              <h3 class="guide-name">{{ guide.nickname }}</h3>
+              <h3 class="guide-name">{{ guide.name }}</h3>
               <div class="guide-rating">
-                <span class="stars">★★★★★</span>
-                <span class="rating-value">{{ formatRating(guide.rating) }}</span>
-                <span class="reviews">({{ guide.totalReviews || 0 }}{{ t('guide.reviews') }})</span>
+                <div class="stars">
+                  <span v-for="i in 5" :key="i" class="star">
+                    {{ i <= Math.floor(guide.rating) ? '⭐' : '☆' }}
+                  </span>
+                </div>
+                <span class="rating-text">{{ formatRating(guide.rating) }}</span>
               </div>
               <div class="guide-tags">
-                <span
-                  v-for="tag in guide.tagsArray"
-                  :key="tag"
-                  class="tag"
-                >
+                <span v-for="tag in guide.tags" :key="tag" class="tag">
                   {{ tag }}
                 </span>
               </div>
-              <div class="guide-cities">
-                <span v-for="city in guide.citiesArray" :key="city" class="city">
-                  {{ city }}
-                </span>
+              <div class="guide-price">¥{{ guide.price }}/{{ guide.period }}</div>
+              <div class="guide-actions">
+                <button class="btn-primary" @click.stop="viewGuide(guide.id)">
+                  {{ t('guide.viewDetails') }}
+                </button>
+                <button
+                  class="btn-favorite"
+                  :class="{ active: isFavorite(guide.id) }"
+                  @click.stop="toggleFavorite(guide.id)"
+                >
+                  {{ isFavorite(guide.id) ? '❤️' : '🤍' }}
+                </button>
               </div>
-              <div class="guide-price">
-                <span class="price-label">{{ t('guide.dailyRate') }}：</span>
-                <span class="price-value">¥{{ guide.dailyRate || 0 }}</span>
-              </div>
-            </div>
-            <div class="guide-actions">
-              <button class="btn-primary" @click.stop="viewGuide(guide.id)">
-                {{ t('guide.viewDetails') }}
-              </button>
-              <button
-                class="btn-favorite"
-                :class="{ active: isFavorite(guide.id) }"
-                @click.stop="toggleFavorite(guide.id)"
-              >
-                {{ isFavorite(guide.id) ? '❤️' : '🤍' }}
-              </button>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- AI智能向导 -->
-      <AIGuide />
     </PageContainer>
+    
+    <!-- AI悬浮球按钮 -->
+    <AIFloatingButton />
   </div>
 </template>
 
@@ -163,7 +154,7 @@ import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import request from '@/api/request'
 import PageContainer from '@/components/layout/PageContainer.vue'
-import AIGuide from '@/components/AIGuide.vue'
+import AIFloatingButton from '@/components/AIFloatingButton.vue'
 import { useI18n } from '@/composables/useI18n'
 import { getAvatarUrl } from '@/utils/avatar'
 

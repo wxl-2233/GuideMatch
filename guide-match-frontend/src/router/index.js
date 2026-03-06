@@ -85,6 +85,11 @@ const routes = [
     name: 'Membership',
     component: () => import('@/views/membership/index.vue'),
   },
+  {
+    path: '/ai-guide',
+    name: 'AIGuide',
+    component: () => import('@/views/ai-guide/index.vue'),
+  },
 ]
 
 const router = createRouter({

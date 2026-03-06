@@ -229,19 +229,25 @@ onMounted(() => {
 }
 
 .plan-card:hover {
-  border-color: var(--primary);
+  border-color: var(--primary) !important;
   transform: translateY(-4px);
   box-shadow: 0 12px 32px rgba(139, 92, 246, 0.15);
 }
 
 .plan-card.selected {
-  border-color: var(--primary);
+  border-color: var(--primary) !important;
   box-shadow: 0 8px 24px rgba(139, 92, 246, 0.2);
 }
 
 .plan-card.featured {
   border: 1px solid var(--border-color);
   box-shadow: 0 8px 24px rgba(139, 92, 246, 0.2);
+}
+
+.plan-card.featured:hover {
+  border-color: var(--primary) !important;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(139, 92, 246, 0.15);
 }
 
 .plan-header {
@@ -253,7 +259,7 @@ onMounted(() => {
 .plan-name {
   font-size: 24px;
   font-weight: 600;
-  color: var(--text-main);
+  color: #1f2937;
   margin-bottom: 8px;
 }
 
@@ -272,7 +278,7 @@ onMounted(() => {
 
 .period {
   font-size: 16px;
-  color: var(--text-muted);
+  color: #6b7280;
 }
 
 .featured-badge {
@@ -305,7 +311,7 @@ onMounted(() => {
 }
 
 .feature-text {
-  color: var(--text-main);
+  color: #1f2937;
   font-size: 14px;
 }
 
@@ -441,13 +447,13 @@ onMounted(() => {
 .payment-info h4 {
   font-size: 18px;
   font-weight: 600;
-  color: var(--text-main);
+  color: #1f2937;
   margin: 0 0 8px 0;
 }
 
 .payment-info p {
   font-size: 14px;
-  color: var(--text-muted);
+  color: #6b7280;
   margin: 0;
   line-height: 1.5;
 }

@@ -84,13 +84,18 @@
         </div>
       </div>
     </PageContainer>
+    
+    <!-- AI悬浮球按钮 -->
+    <AIFloatingButton />
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import request from '@/api/request'
 import PageContainer from '@/components/layout/PageContainer.vue'
+import AIFloatingButton from '@/components/AIFloatingButton.vue'
 import { useI18n } from '@/composables/useI18n'
 import { getAvatarUrl } from '@/utils/avatar'
 

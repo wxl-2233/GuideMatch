@@ -10,6 +10,9 @@
 
     <!-- 精选内容区 -->
     <Highlights />
+    
+    <!-- AI悬浮球按钮 -->
+    <AIFloatingButton />
   </div>
 </template>
 
@@ -18,6 +21,7 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import ScenicHero from './sections/ScenicHero.vue'
 import Highlights from './sections/Highlights.vue'
 import InlineLogin from '@/components/feature/InlineLogin.vue'
+import AIFloatingButton from '@/components/AIFloatingButton.vue'
 
 const showLogin = ref(false)
 
