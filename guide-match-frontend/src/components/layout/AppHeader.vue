@@ -79,9 +79,37 @@
               {{ t('header.profile') }}
             </button>
             <!-- 根据角色显示不同的快速入口 -->
-            <template v-if="userInfo?.role === 'tourist' || userInfo?.role === 'guide'">
+            <template v-if="userInfo?.role === 'tourist'">
+              <button class="user-menu-item" @click="goToOrders">
+                {{ t('header.myOrders') }}
+              </button>
+              <button class="user-menu-item" @click="goToFavorites">
+                {{ t('header.myFavorites') }}
+              </button>
               <button class="user-menu-item" @click="goToMembership">
                 {{ t('header.becomeMember') }}
+              </button>
+            </template>
+            <template v-else-if="userInfo?.role === 'guide'">
+              <button class="user-menu-item" @click="goToGuideDashboard">
+                {{ t('header.guideDashboard') }}
+              </button>
+              <button class="user-menu-item" @click="goToGuideOrders">
+                {{ t('header.orderManagement') }}
+              </button>
+              <button class="user-menu-item" @click="goToGuideCalendar">
+                {{ t('header.calendarManagement') }}
+              </button>
+              <button class="user-menu-item" @click="goToGuideIncome">
+                {{ t('header.incomeStats') }}
+              </button>
+              <button class="user-menu-item" @click="goToMembership">
+                {{ t('header.becomeMember') }}
+              </button>
+            </template>
+            <template v-else-if="userInfo?.role === 'admin'">
+              <button class="user-menu-item" @click="goToAdmin">
+                {{ t('header.adminPanel') }}
               </button>
             </template>
             <button class="user-menu-item" @click="logout">
