@@ -1,13 +1,48 @@
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
-  
-  --bg-main: #f8f5ff;
-  --card-bg: rgba(255, 255, 255, 0.9);
-  --primary: #8b5cf6;
+  font-weight: 400;
 
-  --nav-bg: #4c1d95; 
-  --nav-text: #000000; 
+  color-scheme: light dark;
+  color: #1f2937;
+  background-color: transparent;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --bg-main: #f8f5ff;
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --card-shadow: 0 8px 24px rgba(139, 92, 246, 0.08);
+  --primary: #8b5cf6;
+  
+  /* 导航栏颜色 - 深紫色背景 */
+  --header-bg: linear-gradient(135deg, #4c1d95 0%, #6b3aa0 100%);
+  --header-border: rgba(139, 92, 246, 0.3);
+  --header-pill-bg: rgba(139, 92, 246, 0.2);
+  --text-main: #ffffff;
+  --text-muted: #e0e7ff;
+  --border-color: rgba(255, 255, 255, 0.1);
+  
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --bg-main: #0f172a;
+  --card-bg: rgba(30,41,59,0.85);
+  --card-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  --primary: #60a5fa;
+  
+  /* 导航栏颜色 - 深紫色背景，与浅色主题相呼应 */
+  --header-bg: linear-gradient(135deg, #6b46c1 0%, #8b5cf6 100%);
+  --header-border: rgba(139, 92, 246, 0.3);
+  --header-pill-bg: rgba(139, 92, 246, 0.2);
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
+  --border-color: rgba(255, 255, 255, 0.1);
+  
+  color-scheme: dark;
 }
 
 /* 全局重置 */
@@ -18,80 +53,4 @@ html, body {
   background-color: var(--bg-main);
   color: #1f2937;
   -webkit-font-smoothing: antialiased;
-}
-
-/* --- 导航栏核心样式 --- */
-header, .header, .nav-container {
-  background: var(--nav-bg) !important;
-  color: var(--nav-text) !important;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  padding: 0 24px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-header a, .header a, 
-header span, .header .logo,
-header .nav-item {
-  color: var(--nav-text) !important;
-  text-decoration: none;
-  font-weight: 600;
-  margin: 0 15px;
-}
-
-.header .pill, .header .user-control {
-  background: rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 20px;
-  padding: 4px 12px;
-  color: var(--nav-text);
-}
-
-/* --- 会员中心卡片部分 --- */
-.container {
-  max-width: 1200px;
-  margin: 40px auto;
-  text-align: center;
-}
-
-.membership-title {
-  font-size: 2.5rem;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-.glass-card {
-  background: var(--card-bg);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(139, 92, 246, 0.1);
-  padding: 30px;
-  transition: transform 0.3s ease;
-}
-
-.glass-card:hover {
-  transform: translateY(-5px);
-}
-
-/* 按钮样式 */
-button.select-btn {
-  width: 100%;
-  padding: 12px;
-  border-radius: 12px;
-  border: 2px solid #8b5cf6;
-  background: transparent;
-  color: #8b5cf6;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-button.select-btn:hover {
-  background: #8b5cf6;
-  color: white;
 }

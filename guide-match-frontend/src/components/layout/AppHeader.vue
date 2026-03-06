@@ -78,6 +78,40 @@
             <button class="user-menu-item" @click="goToProfile">
               {{ t('header.profile') }}
             </button>
+            <!-- 根据角色显示不同的快速入口 -->
+            <template v-if="userInfo?.role === 'tourist'">
+              <button class="user-menu-item" @click="goToOrders">
+                {{ t('header.myOrders') }}
+              </button>
+              <button class="user-menu-item" @click="goToFavorites">
+                {{ t('header.myFavorites') }}
+              </button>
+              <button class="user-menu-item" @click="goToMembership">
+                {{ t('header.becomeMember') }}
+              </button>
+            </template>
+            <template v-else-if="userInfo?.role === 'guide'">
+              <button class="user-menu-item" @click="goToGuideDashboard">
+                {{ t('header.guideDashboard') }}
+              </button>
+              <button class="user-menu-item" @click="goToGuideOrders">
+                {{ t('header.orderManagement') }}
+              </button>
+              <button class="user-menu-item" @click="goToGuideCalendar">
+                {{ t('header.calendarManagement') }}
+              </button>
+              <button class="user-menu-item" @click="goToGuideIncome">
+                {{ t('header.incomeStats') }}
+              </button>
+              <button class="user-menu-item" @click="goToMembership">
+                {{ t('header.becomeMember') }}
+              </button>
+            </template>
+            <template v-else-if="userInfo?.role === 'admin'">
+              <button class="user-menu-item" @click="goToAdmin">
+                {{ t('header.adminPanel') }}
+              </button>
+            </template>
             <button class="user-menu-item" @click="logout">
               {{ t('header.logout') }}
             </button>
@@ -675,4 +709,20 @@ onUnmounted(() => {
   color: var(--text-muted);
 }
 
+.user-menu-item {
+  width: 100%;
+  padding: 10px 12px;
+  border: none;
+  background: transparent;
+  text-align: left;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--text-main);
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.user-menu-item:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
 </style>
