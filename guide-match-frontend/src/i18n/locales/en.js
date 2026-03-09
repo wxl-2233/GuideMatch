@@ -172,7 +172,7 @@ export default {
     uploadAvatar: 'Upload Avatar',
     selectImage: 'Select Image',
     personalInfoHint: 'Information in "Personal Information" step can be edited later in profile',
-    imageTitle: 'Discover More<br/>with the Right Companion',
+    imageTitle: 'Discover More\nwith the Right Companion',
     imageSubtitle: 'Let every exploration meet the right person'
   },
   community: {

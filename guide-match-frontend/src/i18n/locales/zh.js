@@ -175,7 +175,7 @@ export default {
     uploadAvatar: '上传头像',
     selectImage: '选择图片',
     personalInfoHint: '"个人资料"步骤里的信息后续可在个人中心修改',
-    imageTitle: '发现更多<br/>与合适的伙伴同行',
+    imageTitle: '发现更多\n与合适的伙伴同行',
     imageSubtitle: '让每一次探索，都遇见对的人'
   },
   community: {
