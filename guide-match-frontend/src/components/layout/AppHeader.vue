@@ -187,9 +187,12 @@ const triggerLogin = () => {
 /* ===== 语言切换 ===== */
 
 const langs = [
-  { code: 'zh', label: '中文' },
   { code: 'en', label: 'English' },
-  { code: 'ja', label: '日本語' }
+  { code: 'id', label: 'Bahasa Indonesia' },
+  { code: 'ja', label: '日本語' },
+  { code: 'ko', label: '한국어' },
+  { code: 'th', label: 'ไทย' },
+  { code: 'zh', label: '中文' }
 ]
 const currentLang = computed(() => {
   const lang = langs.find(l => l.code === locale.value)

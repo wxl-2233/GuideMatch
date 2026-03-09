@@ -3,9 +3,12 @@
     <!-- 语言选择器 -->
     <div class="language-selector">
       <select v-model="currentLanguage" @change="changeLanguage" class="lang-select">
-        <option value="zh">中文</option>
         <option value="en">English</option>
+        <option value="id">Bahasa Indonesia</option>
         <option value="ja">日本語</option>
+        <option value="ko">한국어</option>
+        <option value="th">ไทย</option>
+        <option value="zh">中文</option>
       </select>
     </div>
 
