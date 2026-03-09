@@ -3,7 +3,7 @@ const AI_CONFIG = {
   // 智增增API配置
   zhizengzeng: {
     baseURL: 'https://api.zhizengzeng.com/v1',
-    apiKey: process.env.VUE_APP_ZHIZENGZENG_API_KEY || 'your-api-key-here',
+    apiKey: import.meta.env.VITE_ZHIZENGZENG_API_KEY || 'demo-key',
     model: 'gpt-3.5-turbo',
     maxTokens: 500,
     temperature: 0.7
@@ -36,10 +36,20 @@ const AI_CONFIG = {
 class AIService {
   constructor() {
     this.config = AI_CONFIG.zhizengzeng
+    this.isDemoMode = !this.checkConfig().hasApiKey
   }
 
   // 发送消息到AI
   async sendMessage(userMessage, conversationHistory = []) {
+    // 如果是演示模式，直接返回预设回复
+    if (this.isDemoMode) {
+      return {
+        success: true,
+        content: this.getDemoResponse(userMessage),
+        usage: null
+      }
+    }
+
     try {
       const messages = [
         {
@@ -88,6 +98,28 @@ class AIService {
     }
   }
 
+  // 演示模式回复
+  getDemoResponse(userMessage) {
+    const responses = {
+      '推荐': '根据您的需求，我推荐您查看我们的向导列表。您可以按照城市、服务类型、价格等条件筛选合适的向导。如果您有具体要求，可以告诉我，我会给您更精准的建议！',
+      '找': '我来帮您找到合适的向导！建议您先确定具体需求：目的地是哪里？需要什么类型的向导服务？预算大概是多少？这样我就能给您更精准的推荐了。',
+      '价格': '关于向导服务价格，每个向导的收费标准不同。一般来说，日薪在200-800元之间，时薪在50-200元之间。具体价格请查看向导详情页面，上面有明确的报价。',
+      '注册': '注册成为向导很简单！1. 点击注册按钮 2. 填写基本信息 3. 完成实名认证 4. 提交相关资质证明 5. 等待审核通过。整个过程一般需要1-3个工作日。',
+      '认证': '向导认证需要：1. 身份证实名认证 2. 相关资质证书（如导游证）3. 服务能力证明 4. 用户评价记录。认证通过后会有特殊标识，更容易获得用户信任。',
+      '留学': '留学向导可以提供：1. 学校申请指导 2. 签证办理协助 3. 住宿安排建议 4. 生活适应指导 5. 学业规划建议。建议选择有留学经验的向导。'
+    }
+
+    // 根据关键词匹配回复
+    for (const [keyword, response] of Object.entries(responses)) {
+      if (userMessage.includes(keyword)) {
+        return response
+      }
+    }
+
+    // 默认回复
+    return '感谢您的咨询！我是AI智能向导助手，可以帮您推荐合适的向导、解答平台使用问题。请告诉我您的具体需求，我会尽力为您提供帮助！'
+  }
+
   // 降级处理：返回预设回复
   getFallbackResponse(userMessage) {
     const fallbackResponses = [
@@ -123,9 +155,10 @@ class AIService {
   // 检查API配置
   checkConfig() {
     return {
-      hasApiKey: !!this.config.apiKey && this.config.apiKey !== 'your-api-key-here',
+      hasApiKey: !!this.config.apiKey && this.config.apiKey !== 'demo-key' && this.config.apiKey !== 'your-api-key-here',
       baseURL: this.config.baseURL,
-      model: this.config.model
+      model: this.config.model,
+      isDemoMode: this.isDemoMode
     }
   }
 }

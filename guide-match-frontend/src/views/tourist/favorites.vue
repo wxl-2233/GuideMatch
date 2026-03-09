@@ -29,8 +29,8 @@
               <span class="rating-value">{{ formatRating(guide.rating) }}</span>
               <span class="reviews">({{ guide.totalReviews || 0 }}评价)</span>
             </div>
-            <div v-if="guide.tagsArray && guide.tagsArray.length > 0" class="guide-tags">
-              <span v-for="tag in guide.tagsArray" :key="tag" class="tag">
+            <div v-if="getValidTags(guide.tagsArray).length > 0" class="guide-tags">
+              <span v-for="tag in getValidTags(guide.tagsArray)" :key="tag" class="tag">
                 {{ tag }}
               </span>
             </div>
@@ -73,7 +73,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import request from '@/api/request'
 import PageContainer from '@/components/layout/PageContainer.vue'
@@ -112,6 +112,18 @@ const parseJsonSafely = (jsonStr) => {
   }
 }
 
+// 计算有效标签的函数
+const getValidTags = (tags) => {
+  if (!tags || !Array.isArray(tags)) return []
+  return tags.filter(tag => 
+    tag && 
+    typeof tag === 'string' && 
+    tag.trim() !== '' && 
+    tag !== 'null' && 
+    tag !== 'undefined'
+  )
+}
+
 // 加载收藏的向导列表
 const loadFavorites = async () => {
   loading.value = true
@@ -139,13 +151,19 @@ const loadFavorites = async () => {
         const guideData = data.guide || {}
         const userData = data.user || {}
         
+        // 解析标签并过滤无效标签
+        const tagsArray = getValidTags(parseJsonSafely(guideData.tags))
+        const citiesArray = parseJsonSafely(guideData.cities)
+        const languagesArray = parseJsonSafely(guideData.languages)
+        const certificatesArray = parseJsonSafely(guideData.certificates)
+        
         return {
           ...guideData,
           ...userData, // user 数据会覆盖 guide 中同名的字段（如 nickname, avatarPath）
-          tagsArray: parseJsonSafely(guideData.tags),
-          citiesArray: parseJsonSafely(guideData.cities),
-          languagesArray: parseJsonSafely(guideData.languages),
-          certificatesArray: parseJsonSafely(guideData.certificates)
+          tagsArray,
+          citiesArray,
+          languagesArray,
+          certificatesArray
         }
       } catch (error) {
         console.error(`加载向导 ${guideId} 失败:`, error)

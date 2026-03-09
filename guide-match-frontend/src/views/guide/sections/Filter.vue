@@ -10,6 +10,7 @@
     <TagSelect
       v-model="tags"
       :options="tagOptions"
+      :placeholder="t('guide.tags') || '标签'"
     />
   </section>
 </template>
@@ -46,8 +47,13 @@ watch(keyword, (val) => {
   emit('update:modelValue', val)
 })
 
+// 使用更通用的标签选项，这些可以从后端获取或使用常见的分类
 const tags = ref([])
-const tagOptions = ['留学', '考研', '计算机', '数学', '经验']
+const tagOptions = ref([
+  '英语', '中文', '日语', '韩语', '法语', '德语', '西班牙语',
+  '留学', '旅游', '商务', '文化', '历史', '美食', '购物',
+  '摄影', '徒步', '驾驶', '翻译', '导游', '陪同'
+])
 
 const onSearch = (value) => {
   emit('search', {

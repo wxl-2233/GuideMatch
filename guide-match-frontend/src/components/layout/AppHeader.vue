@@ -450,32 +450,15 @@ onUnmounted(() => {
 }
 
 .logo {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--text-main);
+  font-size: 24px;
+  font-weight: 800;
+  color: #2c3e50;
   cursor: pointer;
-  background: linear-gradient(45deg, #90EE90, #98FB98, #00FA9A, #00FF7F, #3CB371, #2E8B57);
-  background-size: 300% 300%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: gradient-shift 3s ease-in-out infinite;
-  text-shadow: 0 0 8px rgba(0, 255, 255, 1), 
-               0 0 16px rgba(0, 255, 255, 0.8),
-               0 0 24px rgba(0, 255, 255, 0.6),
-               0 0 32px rgba(0, 255, 255, 0.4);
+  letter-spacing: -0.5px;
 }
 
-@keyframes gradient-shift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+.logo:hover {
+  color: #3498db;
 }
 
 .nav {
