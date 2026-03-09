@@ -457,8 +457,8 @@ onUnmounted(() => {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: gradient-shift 3s ease-in-out infinite;
-  text-shadow: 0 0 2px rgba(255, 255, 255, 0.8), 
-               0 0 4px rgba(255, 255, 255, 0.6),
+  text-shadow: 0 0 2px rgba(0, 255, 255, 0.8), 
+               0 0 4px rgba(0, 255, 255, 0.6),
                -1px -1px 0 #000,  
                1px -1px 0 #000,
                -1px 1px 0 #000,

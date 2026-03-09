@@ -38,8 +38,8 @@ jwt:
 ai:
   zhizengzeng:
     api:
-      key: ${ZHIZENGZENG_API_KEY:your-api-key-here}
-      url: ${ZHIZENGZENG_API_URL:https://api.zhizengzeng.com/v1}
+      key: ${ZHIZENGZENG_API_KEY:sk-zk2a93f9c9d23e24a2b0c0ba4b90dcbf65a69ae310a70eac}
+      url: ${ZHIZENGZENG_API_URL:https://gpt.zhizengzeng.com/v1}
       model: ${ZHIZENGZENG_MODEL:gpt-3.5-turbo}
       max-tokens: ${ZHIZENGZENG_MAX_TOKENS:500}
       temperature: ${ZHIZENGZENG_TEMPERATURE:0.7}

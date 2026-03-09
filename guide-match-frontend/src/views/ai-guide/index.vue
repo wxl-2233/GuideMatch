@@ -66,18 +66,6 @@
                   </button>
                 </div>
               </div>
-              
-              <div class="chat-stats">
-                <h4>对话统计</h4>
-                <div class="stat-item">
-                  <span class="stat-label">消息数量</span>
-                  <span class="stat-value">{{ messages.length }}</span>
-                </div>
-                <div class="stat-item">
-                  <span class="stat-label">响应时间</span>
-                  <span class="stat-value">{{ stats.avgResponse }}s</span>
-                </div>
-              </div>
             </div>
           </div>
           
@@ -101,58 +89,11 @@
             </div>
           </div>
         </div>
-
-        <!-- 功能介绍 -->
-        <div class="ai-features-section">
-          <h2 class="features-title">AI助手功能</h2>
-          <div class="features-grid">
-            <div class="feature-card">
-              <div class="feature-icon">🎯</div>
-              <h3>精准推荐</h3>
-              <p>根据您的具体需求，智能推荐最合适的向导，包括专业领域、价格范围、服务类型等</p>
-            </div>
-            <div class="feature-card">
-              <div class="feature-icon">⚡</div>
-              <h3>实时问答</h3>
-              <p>秒级响应您的咨询，解答关于向导服务、流程安排、注意事项等各种问题</p>
-            </div>
-            <div class="feature-card">
-              <div class="feature-icon">🔍</div>
-              <h3>深度分析</h3>
-              <p>分析向导的专业背景、用户评价、服务经验，为您提供全方位的参考信息</p>
-            </div>
-            <div class="feature-card">
-              <div class="feature-icon">💡</div>
-              <h3>个性化建议</h3>
-              <p>根据您的偏好和预算，提供个性化的向导选择建议和优化方案</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- 使用统计 -->
-        <div class="ai-stats-section">
-          <h2 class="stats-title">服务统计</h2>
-          <div class="stats-grid">
-            <div class="stat-card">
-              <div class="stat-number">{{ stats.totalUsers }}</div>
-              <div class="stat-label">服务用户</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-number">{{ stats.totalGuides }}</div>
-              <div class="stat-label">推荐向导</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-number">{{ stats.successRate }}%</div>
-              <div class="stat-label">满意度</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-number">{{ stats.avgResponse }}s</div>
-              <div class="stat-label">响应时间</div>
-            </div>
-          </div>
-        </div>
       </div>
     </PageContainer>
+    
+    <!-- AI悬浮球按钮 -->
+    <AIFloatingButton />
   </div>
 </template>
 
@@ -175,13 +116,6 @@ const chatMessages = ref(null)
 const conversationHistory = ref([])
 
 const quickActions = ref([])
-
-const stats = ref({
-  totalUsers: 1286,
-  totalGuides: 342,
-  successRate: 96,
-  avgResponse: 2.3
-})
 
 onMounted(() => {
   // 获取快速建议
@@ -458,35 +392,6 @@ const formatTime = (timestamp) => {
   transform: translateY(-2px);
 }
 
-.chat-stats h4 {
-  color: var(--primary);
-  margin: 0 0 12px 0;
-  font-size: 16px;
-}
-
-.stat-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 0;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.stat-item:last-child {
-  border-bottom: none;
-}
-
-.stat-label {
-  color: var(--text-muted);
-  font-size: 14px;
-}
-
-.stat-value {
-  color: var(--primary);
-  font-weight: 600;
-  font-size: 14px;
-}
-
 .chat-messages {
   height: 400px;
   overflow-y: auto;
@@ -660,95 +565,6 @@ const formatTime = (timestamp) => {
   cursor: not-allowed;
 }
 
-.ai-features-section {
-  margin-bottom: 64px;
-}
-
-.features-title {
-  font-size: 32px;
-  font-weight: 700;
-  color: var(--primary);
-  text-align: center;
-  margin-bottom: 32px;
-}
-
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
-}
-
-.feature-card {
-  background: var(--card-bg);
-  padding: 32px;
-  border-radius: 16px;
-  text-align: center;
-  border: 1px solid var(--border-color);
-  transition: all 0.3s ease;
-}
-
-.feature-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 32px rgba(139, 92, 246, 0.15);
-}
-
-.feature-icon {
-  font-size: 48px;
-  margin-bottom: 20px;
-}
-
-.feature-card h3 {
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--primary);
-  margin: 0 0 16px 0;
-}
-
-.feature-card p {
-  font-size: 16px;
-  color: var(--text-muted);
-  margin: 0;
-  line-height: 1.6;
-}
-
-.ai-stats-section {
-  margin-bottom: 64px;
-}
-
-.stats-title {
-  font-size: 32px;
-  font-weight: 700;
-  color: var(--primary);
-  text-align: center;
-  margin-bottom: 32px;
-}
-
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 24px;
-}
-
-.stat-card {
-  background: var(--card-bg);
-  padding: 32px;
-  border-radius: 16px;
-  text-align: center;
-  border: 1px solid var(--border-color);
-}
-
-.stat-number {
-  font-size: 48px;
-  font-weight: 700;
-  color: var(--primary);
-  margin-bottom: 8px;
-}
-
-.stat-label {
-  font-size: 16px;
-  color: var(--text-muted);
-}
-
 @media (max-width: 768px) {
   .ai-guide-container {
     padding: 0 16px;
@@ -787,11 +603,6 @@ const formatTime = (timestamp) => {
   
   .send-btn {
     width: 100%;
-  }
-  
-  .features-grid,
-  .stats-grid {
-    grid-template-columns: 1fr;
   }
 }
 </style>
