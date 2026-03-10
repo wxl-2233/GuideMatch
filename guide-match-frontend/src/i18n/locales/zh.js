@@ -25,6 +25,8 @@ export default {
     loginRegister: '登录 / 注册',
     theme: '主题',
     language: '语言',
+    safetyCenter: '安全保障',
+    memberCenter: '会员中心',
     noNotifications: '暂无通知',
     profile: '个人中心',
     logout: '退出登录',

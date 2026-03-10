@@ -90,6 +90,16 @@ const routes = [
     name: 'AIGuide',
     component: () => import('@/views/ai-guide/index.vue'),
   },
+  {
+    path: '/safety',
+    name: 'Safety',
+    component: () => import('@/views/safety/SafetyPage.vue'),
+  },
+  {
+    path: '/member',
+    name: 'Member',
+    component: () => import('@/views/member/MemberPage.vue'),
+  },
 ]
 
 const router = createRouter({
@@ -111,7 +121,7 @@ router.beforeEach((to, from, next) => {
   }
 
   // 不需要登录的页面（游客可访问）
-  const publicPages = ['/login', '/visitor', '/community', '/ai-guide']
+  const publicPages = ['/login', '/visitor', '/community', '/ai-guide', '/safety', '/member']
   const isPublicPage = publicPages.includes(to.path)
 
   // 如果未登录且访问的不是公共页面，重定向到登录页

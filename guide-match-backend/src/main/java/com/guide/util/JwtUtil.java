@@ -91,11 +91,28 @@ public class JwtUtil {
     }
 
     /**
-     * 从Token中获取用户ID
+     * 从Token中获取用户ID (Integer版本)
      */
     public Integer getUserIdFromToken(String token) {
         Claims claims = getClaimsFromToken(token);
         return claims != null ? (Integer) claims.get("userId") : null;
+    }
+
+    /**
+     * 从Token中获取用户ID (Long版本) - 静态方法
+     */
+    public static Long getUserId(String token) {
+        JwtUtil util = new JwtUtil();
+        Claims claims = util.getClaimsFromToken(token);
+        if (claims != null) {
+            Object userIdObj = claims.get("userId");
+            if (userIdObj instanceof Integer) {
+                return ((Integer) userIdObj).longValue();
+            } else if (userIdObj instanceof Long) {
+                return (Long) userIdObj;
+            }
+        }
+        return null;
     }
 
     /**

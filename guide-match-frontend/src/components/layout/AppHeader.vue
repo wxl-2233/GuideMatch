@@ -89,6 +89,12 @@
               <button class="user-menu-item" @click="goToMembership">
                 {{ t('header.becomeMember') }}
               </button>
+              <button class="user-menu-item" @click="goToSafety">
+                {{ t('header.safetyCenter') }}
+              </button>
+              <button class="user-menu-item" @click="goToMember">
+                {{ t('header.memberCenter') }}
+              </button>
             </template>
             <template v-else-if="userInfo?.role === 'guide'">
               <button class="user-menu-item" @click="goToGuideDashboard">
@@ -365,6 +371,16 @@ const goToGuideIncome = () => {
 const goToAdmin = () => {
   userMenuOpen.value = false
   router.push('/admin')
+}
+
+const goToSafety = () => {
+  userMenuOpen.value = false
+  router.push('/safety')
+}
+
+const goToMember = () => {
+  userMenuOpen.value = false
+  router.push('/member')
 }
 
 const logout = () => {
